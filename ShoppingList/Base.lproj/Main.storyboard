@@ -1,24 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cuz-gF-7df">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Shopping List Table View Controller-->
+        <scene sceneID="CMe-p0-jgS">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <tableViewController id="cuz-gF-7df" customClass="ShoppingListTableViewController" customModule="ShoppingList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="insetGrouped" separatorInsetReference="fromAutomaticInsets" sectionIndexMinimumDisplayRowCount="1" rowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="T1o-uu-iYn">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="separatorColor" systemColor="systemGray2Color"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="mKE-8O-reA">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="무엇을 구매하실 건가요?" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mZ5-bP-MkL">
+                                    <rect key="frame" x="20" y="50" width="374" height="55"/>
+                                    <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="55" id="uEe-ak-qSA"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <action selector="inputItemTextField:" destination="cuz-gF-7df" eventType="editingDidEndOnExit" id="MtD-8s-cHv"/>
+                                    </connections>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2DW-dF-QLh">
+                                    <rect key="frame" x="315" y="62" width="67" height="31"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="추가"/>
+                                    <connections>
+                                        <action selector="insertItemToList:" destination="cuz-gF-7df" eventType="touchUpInside" id="daI-WI-NsM"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="쇼핑" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axe-mB-1Tk">
+                                    <rect key="frame" x="191" y="8" width="32" height="22"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="mZ5-bP-MkL" secondAttribute="trailing" constant="20" id="7NP-hl-6iT"/>
+                                <constraint firstItem="2DW-dF-QLh" firstAttribute="top" secondItem="mKE-8O-reA" secondAttribute="top" constant="62" id="Cy4-XB-I48"/>
+                                <constraint firstItem="axe-mB-1Tk" firstAttribute="top" secondItem="mKE-8O-reA" secondAttribute="top" constant="8" id="VKa-2m-QwS"/>
+                                <constraint firstItem="axe-mB-1Tk" firstAttribute="centerX" secondItem="mKE-8O-reA" secondAttribute="centerX" id="VTi-MU-USf"/>
+                                <constraint firstAttribute="bottom" secondItem="mZ5-bP-MkL" secondAttribute="bottom" constant="20" id="dXn-wB-qtb"/>
+                                <constraint firstAttribute="trailing" secondItem="2DW-dF-QLh" secondAttribute="trailing" constant="32" id="dv5-ee-U6R"/>
+                                <constraint firstItem="2DW-dF-QLh" firstAttribute="width" secondItem="mZ5-bP-MkL" secondAttribute="width" multiplier="0.179144" id="e9B-Ql-xcb"/>
+                                <constraint firstItem="mZ5-bP-MkL" firstAttribute="leading" secondItem="mKE-8O-reA" secondAttribute="leading" constant="20" id="iAA-8y-gxd"/>
+                                <constraint firstItem="mZ5-bP-MkL" firstAttribute="top" secondItem="axe-mB-1Tk" secondAttribute="bottom" constant="20" id="mTz-UA-GM4"/>
+                                <constraint firstItem="2DW-dF-QLh" firstAttribute="centerY" secondItem="mZ5-bP-MkL" secondAttribute="centerY" id="pIv-VH-OTH"/>
+                                <constraint firstItem="2DW-dF-QLh" firstAttribute="width" secondItem="mZ5-bP-MkL" secondAttribute="height" multiplier="67:55" id="pcl-o6-5X9"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShopptingListTableViewCell" rowHeight="52" id="pWW-KS-VIa" customClass="ShopptingListTableViewCell" customModule="ShoppingList" customModuleProvider="target">
+                                <rect key="frame" x="20" y="174.5" width="374" height="52"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pWW-KS-VIa" id="5SV-La-T3k">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="52"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ux3-h5-UD7">
+                                            <rect key="frame" x="12" y="13" width="20" height="25.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="20" id="YZ1-ab-E8A"/>
+                                                <constraint firstAttribute="width" secondItem="Ux3-h5-UD7" secondAttribute="height" id="pP1-jl-4Gc"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="그립톡 구매하기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UtZ-au-OSN">
+                                            <rect key="frame" x="44" y="15.5" width="107.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2KN-1t-bwR">
+                                            <rect key="frame" x="338" y="16" width="20" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="20" id="NTb-te-myG"/>
+                                                <constraint firstAttribute="width" secondItem="2KN-1t-bwR" secondAttribute="height" id="amV-UT-NlN"/>
+                                            </constraints>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <state key="normal" image="sta"/>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="UtZ-au-OSN" firstAttribute="centerY" secondItem="5SV-La-T3k" secondAttribute="centerY" id="BXM-IL-Uzd"/>
+                                        <constraint firstItem="Ux3-h5-UD7" firstAttribute="top" secondItem="5SV-La-T3k" secondAttribute="top" constant="12" id="Jno-kp-8Dn"/>
+                                        <constraint firstItem="Ux3-h5-UD7" firstAttribute="centerY" secondItem="5SV-La-T3k" secondAttribute="centerY" id="LNQ-50-3cp"/>
+                                        <constraint firstItem="Ux3-h5-UD7" firstAttribute="leading" secondItem="5SV-La-T3k" secondAttribute="leading" constant="12" id="VET-mT-nuS"/>
+                                        <constraint firstItem="UtZ-au-OSN" firstAttribute="leading" secondItem="Ux3-h5-UD7" secondAttribute="trailing" constant="12" id="ZEO-dY-GyF"/>
+                                        <constraint firstItem="2KN-1t-bwR" firstAttribute="top" secondItem="5SV-La-T3k" secondAttribute="top" constant="16" id="a6d-nf-1Ok"/>
+                                        <constraint firstAttribute="trailing" secondItem="2KN-1t-bwR" secondAttribute="trailing" constant="16" id="deC-IJ-tut"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="checkImage" destination="Ux3-h5-UD7" id="CCR-pN-9tW"/>
+                                    <outlet property="favoritesBtn" destination="2KN-1t-bwR" id="3sC-Jq-miR"/>
+                                    <outlet property="todoLabel" destination="UtZ-au-OSN" id="PC6-Mb-fDX"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="cuz-gF-7df" id="CAc-82-h6i"/>
+                            <outlet property="delegate" destination="cuz-gF-7df" id="Adt-Fn-Awh"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="inputBtn" destination="2DW-dF-QLh" id="sHW-3U-7jC"/>
+                        <outlet property="inputTextField" destination="mZ5-bP-MkL" id="rLt-Nm-YZF"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Fg-iv-fLC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="276.81159420289856" y="75"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="checkmark.square.fill" catalog="system" width="128" height="114"/>
+        <image name="sta" width="128" height="128"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
