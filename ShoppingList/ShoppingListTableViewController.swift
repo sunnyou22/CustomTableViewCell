@@ -45,14 +45,16 @@ class ShoppingListTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    //MARK: - 이게 무 ㅓ더라
+    //MARK: - 섹션 및 셀 구성
 //
-//    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let view = UIView()
-//        view.backgroundColor = UIColor.gray
-//        view.frame(forAlignmentRect: CGRect(x: 0, y: 3, width: 20, height: 1))
-//        return view
-//    }
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let view = UIView()
+        let frame = CGRect(x: 0, y: 5, width: 414, height: 1)
+        view.backgroundColor = UIColor.gray
+        
+        view.frame(forAlignmentRect: frame)
+        return view
+    }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 10
