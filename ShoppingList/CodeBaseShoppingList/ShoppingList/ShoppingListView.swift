@@ -13,11 +13,13 @@ class ShoppingListView: BaseView {
     let tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .plain)
         view.backgroundColor = .systemBackground
+        
         return view
     }()
     
     let topContainView: UIView = {
         let view = UIView()
+        view.backgroundColor = .blue
         return view
     }()
     
@@ -49,22 +51,25 @@ class ShoppingListView: BaseView {
         return view
     }()
     
-   
+    
     override func configureUI() {
-        [plusButton, insertTextField].forEach { topContainSubView.addSubview($0) }
+        [insertTextField, plusButton].forEach { topContainSubView.addSubview($0) }
+        topContainView.addSubview(topContainSubView)
         tableView.addSubview(topContainView)
         self.addSubview(tableView)
     }
     
     override func setConstraints() {
         tableView.snp.makeConstraints { make in
-            make.edges.equalTo(self.safeAreaLayoutGuide)
+            make.edges.equalTo(self).offset(0)
+            
         }
         
         topContainView.snp.makeConstraints { make in
-            make.top.trailing.leading.equalTo(self.safeAreaLayoutGuide).offset(0)
+            make.top.equalTo(tableView.snp.top).offset(0)
+            make.trailing.equalTo(tableView.snp.trailing).offset(0)
+            make.leading.equalTo(tableView.snp.leading).offset(0)
             make.height.equalTo(80)
-            make.trailing.leading.equalTo(self).offset(20)
         }
         
         topContainSubView.snp.makeConstraints { make in
@@ -75,15 +80,16 @@ class ShoppingListView: BaseView {
         }
         
         insertTextField.snp.makeConstraints { make in
-            make.top.equalTo(topContainSubView).offset(8)
+            make.top.equalTo(topContainSubView.snp.top).offset(8)
             make.bottom.equalTo(topContainSubView.snp.bottom).offset(-8)
             make.trailing.equalTo(topContainSubView.snp.trailing).offset(-8)
             make.leading.equalTo(topContainSubView.snp.leading).offset(8)
         }
         
         plusButton.snp.makeConstraints { make in
-            make.trailing.equalTo(insertTextField.snp.trailing).offset(8)
-            make.top.centerY.equalTo(insertTextField)
+            make.trailing.equalTo(topContainSubView.snp.trailing).offset(-8)
+            make.leading.equalTo(insertTextField.snp.trailing).offset(8)
+            make.centerY.equalTo(insertTextField)
             make.height.equalTo(insertTextField.snp.height)
             make.width.equalTo(plusButton.snp.height).multipliedBy(3/5)
         }

@@ -24,23 +24,26 @@ class ShoppingListViewController: BaseViewController {
         
         mainview.tableView.delegate = self
         mainview.tableView.dataSource = self
-        mainview.tableView.register(ShopptingListTableViewCell.self, forCellReuseIdentifier: ShopptingListTableViewCell_re.reuseIdentifier)
+        mainview.tableView.register(ShopptingListTableViewCell_re.self, forCellReuseIdentifier: ShopptingListTableViewCell_re.reuseIdentifier)
         
         tasks = localRealm.objects(UserTodo.self).sorted(byKeyPath: "addTodo", ascending: false)
         print(tasks)
         print(tasks.count)
         print("Realm is located at:", localRealm.configuration.fileURL!)
-        
-        mainview.plusButton.addTarget(self, action: #selector(pulsTodoList), for: .touchUpInside)
-        mainview.insertTextField.addTarget(self, action: #selector(doEndEaditing), for: .touchUpInside)
-        
-        
+    
 //        mainview.tableView.reloadData()
+        
     }
     
-    @objc func pulsTodoList() {
+    override func configure() {
+        mainview.plusButton.addTarget(self, action: #selector(pulsRowTodoList), for: .touchUpInside)
+        mainview.insertTextField.addTarget(self, action: #selector(doEndEaditing), for: .touchUpInside)
+    }
+    
+    @objc func pulsRowTodoList() {
         let task = UserTodo(todoTitle: mainview.insertTextField.text!)
         print(task)
+        print(#function)
         try! localRealm.write {
             localRealm.add(task)
             print("림 성공쓰")
@@ -49,7 +52,6 @@ class ShoppingListViewController: BaseViewController {
             print(task)
         }
     }
-    
     
     @objc func doEndEaditing() {
         view.endEditing(true)
@@ -62,7 +64,7 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
 //        let view = UIView()
 //        let frame = CGRect(x: 0, y: 5, width: 414, height: 1)
 //        view.backgroundColor = UIColor.gray
-//        
+//
 //        view.frame(forAlignmentRect: frame)
 //        return view
 //    }
@@ -71,19 +73,25 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
 //        return 10
 //    }
 
-    
+//    func updateLayout() {
+//        self.mainview.setNeedsLayout()
+//        self.mainview.layoutIfNeeded()
+//    }
+//    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(tasks.count)
        return tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ShopptingListTableViewCell_re.reuseIdentifier, for: indexPath) as! ShopptingListTableViewCell // 타입캐스팅 얼른 배우고싶다
+        let cell = tableView.dequeueReusableCell(withIdentifier: ShopptingListTableViewCell_re.reuseIdentifier, for: indexPath) as! ShopptingListTableViewCell_re // 타입캐스팅 얼른 배우고싶다
         
         cell.backgroundColor = .systemGray6
         
         //
-        cell.todoLabel.text = tasks[indexPath.section].addTodo
+        cell.todoLabel.text = tasks[indexPath.row].addTodo
+        
+        
         
         return cell
     }

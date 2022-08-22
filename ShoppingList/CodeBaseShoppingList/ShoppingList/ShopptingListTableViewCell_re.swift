@@ -38,6 +38,17 @@ class ShopptingListTableViewCell_re: BaseTableViewCell {
         return view
     }()
     
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        configure()
+        setConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func configure() {
         [imageview, todoLabel, favoriteButton].forEach { containView.addSubview($0) }
         self.addSubview(containView)
@@ -45,8 +56,10 @@ class ShopptingListTableViewCell_re: BaseTableViewCell {
     
     override func setConstraints() {
         containView.snp.makeConstraints { make in
-            make.top.bottom.equalTo(self).offset(4)
-            make.trailing.leading.equalTo(self).offset(20)
+            make.top.equalTo(self.snp.top).offset(4)
+            make.bottom.equalTo(self.snp.bottom).offset(4)
+            make.trailing.equalTo(self.snp.trailing).offset(20)
+            make.leading.equalTo(self).offset(20)
         }
         
         imageview.snp.makeConstraints { make in
