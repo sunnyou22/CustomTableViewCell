@@ -87,15 +87,20 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: ShopptingListTableViewCell_re.reuseIdentifier, for: indexPath) as! ShopptingListTableViewCell_re // 타입캐스팅 얼른 배우고싶다
         
         cell.backgroundColor = .systemGray6
-        
-        //
+   
         cell.todoLabel.text = tasks[indexPath.row].addTodo
-        
-        
-        
+  
         return cell
     }
     
-    
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+           
+           if editingStyle == .delete {
+               let item = tasks?[indexPath.row]
+               try! localRealm.write {
+                   localRealm.delete(item!)
+               }
+               tableView.reloadData()
+           }
+       }
 }
