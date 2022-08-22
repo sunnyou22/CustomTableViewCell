@@ -7,9 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9031927B28B3A0F5001BB3E0 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9031927A28B3A0F5001BB3E0 /* SnapKit */; };
 		903CD5E828B381CD00411649 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903CD5E728B381CD00411649 /* RealmModel.swift */; };
 		903CD5EB28B3822700411649 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 903CD5EA28B3822700411649 /* Realm */; };
 		903CD5ED28B3822700411649 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 903CD5EC28B3822700411649 /* RealmSwift */; };
+		903CD5F328B3988E00411649 /* ReusableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903CD5F228B3988E00411649 /* ReusableProtocol.swift */; };
+		903CD5F528B3992200411649 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903CD5F428B3992200411649 /* BaseViewController.swift */; };
+		903CD5F728B399E400411649 /* BaseTabelViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903CD5F628B399E400411649 /* BaseTabelViewCell.swift */; };
+		903CD5F928B39B0600411649 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903CD5F828B39B0600411649 /* BaseView.swift */; };
+		903CD5FB28B39B8100411649 /* ShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903CD5FA28B39B8100411649 /* ShoppingListViewController.swift */; };
+		903CD5FD28B39B9D00411649 /* ShoppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903CD5FC28B39B9D00411649 /* ShoppingListView.swift */; };
+		903CD5FF28B39BB000411649 /* ShopptingListTableViewCell_re.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903CD5FE28B39BB000411649 /* ShopptingListTableViewCell_re.swift */; };
 		904942E02886AED500E79CF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904942DF2886AED500E79CF8 /* AppDelegate.swift */; };
 		904942E22886AED500E79CF8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904942E12886AED500E79CF8 /* SceneDelegate.swift */; };
 		904942E42886AED500E79CF8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904942E32886AED500E79CF8 /* ViewController.swift */; };
@@ -22,6 +30,13 @@
 
 /* Begin PBXFileReference section */
 		903CD5E728B381CD00411649 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
+		903CD5F228B3988E00411649 /* ReusableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProtocol.swift; sourceTree = "<group>"; };
+		903CD5F428B3992200411649 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		903CD5F628B399E400411649 /* BaseTabelViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabelViewCell.swift; sourceTree = "<group>"; };
+		903CD5F828B39B0600411649 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		903CD5FA28B39B8100411649 /* ShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewController.swift; sourceTree = "<group>"; };
+		903CD5FC28B39B9D00411649 /* ShoppingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListView.swift; sourceTree = "<group>"; };
+		903CD5FE28B39BB000411649 /* ShopptingListTableViewCell_re.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopptingListTableViewCell_re.swift; sourceTree = "<group>"; };
 		904942DC2886AED500E79CF8 /* ShoppingList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		904942DF2886AED500E79CF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		904942E12886AED500E79CF8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9031927B28B3A0F5001BB3E0 /* SnapKit in Frameworks */,
 				903CD5ED28B3822700411649 /* RealmSwift in Frameworks */,
 				903CD5EB28B3822700411649 /* Realm in Frameworks */,
 			);
@@ -53,6 +69,44 @@
 				903CD5E728B381CD00411649 /* RealmModel.swift */,
 			);
 			path = Realm;
+			sourceTree = "<group>";
+		};
+		903CD5EE28B397E600411649 /* CodeBaseShoppingList */ = {
+			isa = PBXGroup;
+			children = (
+				903CD5F128B3986700411649 /* Constants */,
+				903CD5F028B3983700411649 /* ShoppingList */,
+				903CD5EF28B3982800411649 /* Base */,
+			);
+			path = CodeBaseShoppingList;
+			sourceTree = "<group>";
+		};
+		903CD5EF28B3982800411649 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				903CD5F428B3992200411649 /* BaseViewController.swift */,
+				903CD5F628B399E400411649 /* BaseTabelViewCell.swift */,
+				903CD5F828B39B0600411649 /* BaseView.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		903CD5F028B3983700411649 /* ShoppingList */ = {
+			isa = PBXGroup;
+			children = (
+				903CD5FA28B39B8100411649 /* ShoppingListViewController.swift */,
+				903CD5FC28B39B9D00411649 /* ShoppingListView.swift */,
+				903CD5FE28B39BB000411649 /* ShopptingListTableViewCell_re.swift */,
+			);
+			path = ShoppingList;
+			sourceTree = "<group>";
+		};
+		903CD5F128B3986700411649 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				903CD5F228B3988E00411649 /* ReusableProtocol.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		904942D32886AED500E79CF8 = {
@@ -74,6 +128,7 @@
 		904942DE2886AED500E79CF8 /* ShoppingList */ = {
 			isa = PBXGroup;
 			children = (
+				903CD5EE28B397E600411649 /* CodeBaseShoppingList */,
 				903CD5E628B381A900411649 /* Realm */,
 				904942DF2886AED500E79CF8 /* AppDelegate.swift */,
 				904942E12886AED500E79CF8 /* SceneDelegate.swift */,
@@ -107,6 +162,7 @@
 			packageProductDependencies = (
 				903CD5EA28B3822700411649 /* Realm */,
 				903CD5EC28B3822700411649 /* RealmSwift */,
+				9031927A28B3A0F5001BB3E0 /* SnapKit */,
 			);
 			productName = ShoppingList;
 			productReference = 904942DC2886AED500E79CF8 /* ShoppingList.app */;
@@ -138,6 +194,7 @@
 			mainGroup = 904942D32886AED500E79CF8;
 			packageReferences = (
 				903CD5E928B3822700411649 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				9031927928B3A0F5001BB3E0 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 904942DD2886AED500E79CF8 /* Products */;
 			projectDirPath = "";
@@ -166,12 +223,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				903CD5FD28B39B9D00411649 /* ShoppingListView.swift in Sources */,
+				903CD5FB28B39B8100411649 /* ShoppingListViewController.swift in Sources */,
 				904942E42886AED500E79CF8 /* ViewController.swift in Sources */,
+				903CD5F328B3988E00411649 /* ReusableProtocol.swift in Sources */,
 				903CD5E828B381CD00411649 /* RealmModel.swift in Sources */,
 				904942E02886AED500E79CF8 /* AppDelegate.swift in Sources */,
 				904942E22886AED500E79CF8 /* SceneDelegate.swift in Sources */,
+				903CD5F528B3992200411649 /* BaseViewController.swift in Sources */,
 				904942F62886B73000E79CF8 /* ShoppingListTableViewController.swift in Sources */,
+				903CD5F928B39B0600411649 /* BaseView.swift in Sources */,
+				903CD5F728B399E400411649 /* BaseTabelViewCell.swift in Sources */,
 				904942F82886B79700E79CF8 /* ShopptingListTableViewCell.swift in Sources */,
+				903CD5FF28B39BB000411649 /* ShopptingListTableViewCell_re.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +457,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9031927928B3A0F5001BB3E0 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		903CD5E928B3822700411649 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -404,6 +476,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9031927A28B3A0F5001BB3E0 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9031927928B3A0F5001BB3E0 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
 		903CD5EA28B3822700411649 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 903CD5E928B3822700411649 /* XCRemoteSwiftPackageReference "realm-swift" */;
