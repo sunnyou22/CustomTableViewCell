@@ -14,7 +14,7 @@ class UserTodo: Object {
     @Persisted var todoTitle: String
 //    @Persisted var todoDate: String
     @Persisted var favorite: Bool
-//    @Persisted var checkbox: Bool
+    @Persisted var checkbox: Bool
 
 //MARK: pk 만들기
 @Persisted(primaryKey: true) var objectID: ObjectId
@@ -25,6 +25,6 @@ class UserTodo: Object {
     self.todoTitle = todoTitle
 //    self.todoDate = ""
     self.favorite = false
-//    self.checkbox = false
+    self.checkbox = false
 }
 }

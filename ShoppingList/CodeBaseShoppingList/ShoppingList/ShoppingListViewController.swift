@@ -24,6 +24,11 @@ class ShoppingListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let task = UserTodo(todoTitle: "쌀사기")
+        try! localRealm.write {
+            localRealm.add(task)
+        }
+        
         mainview.tableView.delegate = self
         mainview.tableView.dataSource = self
        
@@ -31,16 +36,18 @@ class ShoppingListViewController: BaseViewController {
         
         mainview.tableView.register(ShopptingListTableViewCell_re.self, forCellReuseIdentifier: ShopptingListTableViewCell_re.reuseIdentifier)
         
-        tasks = localRealm.objects(UserTodo.self).sorted(byKeyPath: "todoTitle", ascending: false)
-        print(tasks)
-        print(tasks.count)
         print("Realm is located at:", localRealm.configuration.fileURL!)
-//        mainview.tableView.reloadData()
+
         view.backgroundColor = .systemBlue
         
         headerview.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 100)
-       
         headerview.layoutIfNeeded()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        mainview.tableView.reloadData()
     }
     
     override func configure() {
@@ -126,6 +133,8 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // 이렇게 전체 데이터를 가져오는 등의 과정이 필요함. 화면과 데이터는 따로
+        tasks = localRealm.objects(UserTodo.self).sorted(byKeyPath: "todoTitle", ascending: true)
         print(tasks.count)
        return tasks.count
     }
@@ -143,17 +152,17 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: ShopptingListTableViewCell_re.reuseIdentifier, for: indexPath) as! ShopptingListTableViewCell_re
-//        try! self.localRealm.write({
-//            self.tasks[indexPath.row].checkbox = !self.tasks[indexPath.row].checkbox
-//        })
-//        let image = tasks[indexPath.row].checkbox ? "checkmark.square.fill" : "checkmark.square"
-//        cell.imageview.image = UIImage(systemName: image)
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ShopptingListTableViewCell_re.reuseIdentifier, for: indexPath) as! ShopptingListTableViewCell_re
+        try! self.localRealm.write({
+            self.tasks[indexPath.row].checkbox = !self.tasks[indexPath.row].checkbox
+        })
+        let image = tasks[indexPath.row].checkbox ? "checkmark.square.fill" : "checkmark.square"
+        cell.imageview.image = UIImage(systemName: image)
+    }
 
-//    } // 편집기능을 넣어줄거야 이게 있어야 삭제도 편집도 가능함
-//    //canEditRowAt이 있어야 스와이프 삭제도 가능한 건가요? 넹
+     // 편집기능을 넣어줄거야 이게 있어야 삭제도 편집도 가능함
+    //canEditRowAt이 있어야 스와이프 삭제도 가능한 건가요? 넹
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
            
