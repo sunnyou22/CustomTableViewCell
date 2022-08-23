@@ -45,7 +45,7 @@ class ShoppingListView: BaseView {
     
     let insertTextField: UITextField = {
         let view = UITextField()
-        view.placeholder = "사고싶은 항목을 적고 추가 버튼을 클릭해주세요"
+        view.attributedPlaceholder = NSAttributedString(string: "  사고싶은 항목을 적고, 추가 버튼을 클릭해주세요  ", attributes: CustomFont.attributes as [NSAttributedString.Key : Any])
         view.backgroundColor = .lightGray
         
         return view

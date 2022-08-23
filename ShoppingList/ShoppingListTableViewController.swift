@@ -11,11 +11,6 @@ import RealmSwift
 class ShoppingListTableViewController: UITableViewController {
     @IBOutlet weak var inputBtn: UIButton!
     @IBOutlet weak var inputTextField: UITextField!
-//   {
-//        didSet {
-//            tableView.reloadData()
-//        }
-//    }
     
     var list = ["그립톡 구매하기", "사이다구매", "아이패드 케이스 최저가 알아보기", "양말"]
     
@@ -26,7 +21,7 @@ class ShoppingListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tasks = localRealm.objects(UserTodo.self).sorted(byKeyPath: "addTodo", ascending: false)
+        tasks = localRealm.objects(UserTodo.self).sorted(byKeyPath: "todoTitle", ascending: false)
         print(tasks)
         print(tasks.count)
         print("Realm is located at:", localRealm.configuration.fileURL!)
@@ -110,7 +105,7 @@ class ShoppingListTableViewController: UITableViewController {
         cell.backgroundColor = .systemGray6
         
         //
-        cell.todoLabel.text = tasks[indexPath.section].addTodo
+        cell.todoLabel.text = tasks[indexPath.section].todoTitle
         
 //        cell.checkImage.image = indexPath.section == 0 ? UIImage(systemName: "checkmark.square.fill") : UIImage(systemName: "checkmark.square")
 //

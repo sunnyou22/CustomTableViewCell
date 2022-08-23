@@ -7,8 +7,13 @@
 
 import UIKit
 import SnapKit
+import RealmSwift
+import SwiftUI
 
 class ShopptingListTableViewCell_re: BaseTableViewCell {
+    
+    let localRealm = try! Realm()
+    var tasks: Results<UserTodo>!
     
     let containView: UIView = {
         let view = UIView()
@@ -81,4 +86,6 @@ class ShopptingListTableViewCell_re: BaseTableViewCell {
             make.bottom.equalTo(containView.snp.bottom).offset(8)
         }
     }
+    
+    
 }

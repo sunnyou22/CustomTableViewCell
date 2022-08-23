@@ -10,7 +10,7 @@
         <!--Shopping List Table View Controller-->
         <scene sceneID="CMe-p0-jgS">
             <objects>
-                <tableViewController id="cuz-gF-7df" customClass="ShoppingListTableViewController" customModule="ShoppingList" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ShoppingListTableViewController" id="cuz-gF-7df" customClass="ShoppingListTableViewController" customModule="ShoppingList" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="insetGrouped" separatorInsetReference="fromAutomaticInsets" sectionIndexMinimumDisplayRowCount="1" rowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="T1o-uu-iYn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -85,13 +85,13 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2KN-1t-bwR">
-                                            <rect key="frame" x="338" y="16" width="20" height="20"/>
+                                            <rect key="frame" x="314" y="4" width="44" height="44"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="20" id="NTb-te-myG"/>
-                                                <constraint firstAttribute="width" secondItem="2KN-1t-bwR" secondAttribute="height" id="amV-UT-NlN"/>
+                                                <constraint firstAttribute="height" constant="44" id="LYA-t9-XDb"/>
+                                                <constraint firstAttribute="width" constant="44" id="lgt-nk-93j"/>
                                             </constraints>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" image="sta"/>
+                                            <state key="normal" image="star.fill" catalog="system"/>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -100,8 +100,8 @@
                                         <constraint firstItem="Ux3-h5-UD7" firstAttribute="centerY" secondItem="5SV-La-T3k" secondAttribute="centerY" id="LNQ-50-3cp"/>
                                         <constraint firstItem="Ux3-h5-UD7" firstAttribute="leading" secondItem="5SV-La-T3k" secondAttribute="leading" constant="12" id="VET-mT-nuS"/>
                                         <constraint firstItem="UtZ-au-OSN" firstAttribute="leading" secondItem="Ux3-h5-UD7" secondAttribute="trailing" constant="12" id="ZEO-dY-GyF"/>
-                                        <constraint firstItem="2KN-1t-bwR" firstAttribute="top" secondItem="5SV-La-T3k" secondAttribute="top" constant="16" id="a6d-nf-1Ok"/>
-                                        <constraint firstAttribute="trailing" secondItem="2KN-1t-bwR" secondAttribute="trailing" constant="16" id="deC-IJ-tut"/>
+                                        <constraint firstAttribute="trailing" secondItem="2KN-1t-bwR" secondAttribute="trailing" constant="16" id="ey2-YH-mJL"/>
+                                        <constraint firstItem="2KN-1t-bwR" firstAttribute="centerY" secondItem="UtZ-au-OSN" secondAttribute="centerY" id="lBG-BH-nKw"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -249,7 +249,6 @@
     <resources>
         <image name="checkmark.square" catalog="system" width="128" height="114"/>
         <image name="checkmark.square.fill" catalog="system" width="128" height="114"/>
-        <image name="sta" width="128" height="128"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
