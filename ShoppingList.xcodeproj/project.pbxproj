@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9008E43C28B63625005852B4 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9008E43B28B63625005852B4 /* FileManager+Extension.swift */; };
 		901C307828B4A3C0006F684E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 901C307728B4A3C0006F684E /* Realm */; };
 		901C307A28B4A3C3006F684E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 901C307928B4A3C3006F684E /* RealmSwift */; };
 		901C30AB28B530C2006F684E /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901C30AA28B530C2006F684E /* CustomView.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9008E43B28B63625005852B4 /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
 		901C30AA28B530C2006F684E /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		903CD5E728B381CD00411649 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		903CD5F228B3988E00411649 /* ReusableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProtocol.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				903CD5F128B3986700411649 /* Constants */,
 				903CD5F028B3983700411649 /* ShoppingList */,
 				903CD5EF28B3982800411649 /* Base */,
+				9008E43B28B63625005852B4 /* FileManager+Extension.swift */,
 			);
 			path = CodeBaseShoppingList;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				903CD5F528B3992200411649 /* BaseViewController.swift in Sources */,
 				904942F62886B73000E79CF8 /* ShoppingListTableViewController.swift in Sources */,
 				903CD5F928B39B0600411649 /* BaseView.swift in Sources */,
+				9008E43C28B63625005852B4 /* FileManager+Extension.swift in Sources */,
 				903CD5F728B399E400411649 /* BaseTabelViewCell.swift in Sources */,
 				904942F82886B79700E79CF8 /* ShopptingListTableViewCell.swift in Sources */,
 				903CD5FF28B39BB000411649 /* ShopptingListTableViewCell_re.swift in Sources */,

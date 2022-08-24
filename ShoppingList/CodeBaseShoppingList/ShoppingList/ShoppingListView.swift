@@ -10,6 +10,13 @@ import SnapKit
 
 class ShoppingListView: BaseView {
     
+    let headerview: UIView = {
+        let view = UIView()
+        view.backgroundColor = .brown
+        
+        return view
+    }()
+    
     let tableView: UITableView = {
         let view = UITableView(frame: .zero, style: .plain)
         view.backgroundColor = .systemBackground
@@ -55,7 +62,8 @@ class ShoppingListView: BaseView {
     override func configureUI() {
         [insertTextField, plusButton].forEach { topContainSubView.addSubview($0) }
         topContainView.addSubview(topContainSubView)
-        tableView.addSubview(topContainView)
+        headerview.addSubview(topContainView)
+        tableView.addSubview(headerview)
         self.addSubview(tableView)
     }
     

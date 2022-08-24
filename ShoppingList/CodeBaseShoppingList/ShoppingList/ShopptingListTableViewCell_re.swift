@@ -12,9 +12,6 @@ import SwiftUI
 
 class ShopptingListTableViewCell_re: BaseTableViewCell {
     
-    let localRealm = try! Realm()
-    var tasks: Results<UserTodo>!
-    
     let containView: UIView = {
         let view = UIView()
         return view

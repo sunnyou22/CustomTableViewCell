@@ -11,54 +11,57 @@ import RealmSwift
 
 class ShoppingListViewController: BaseViewController {
     
-    let mainview = ShoppingListView()
-    let headerview = UIView()
+   let mainview = ShoppingListView()
+//    let headerview = UIView()
     let localRealm = try! Realm() // Realm2 데이터베이스에 테이블 수정추가 등 반영해주기 위한 선언
-    var tasks: Results<UserTodo>!
+    var tasks: Results<UserTodo>! {
+        didSet {
+            mainview.tableView.reloadData()
+        }
+    }
     var cellIndex: Int?
     
+    //MARK: 로드뷰
     override func loadView() {
         self.view = mainview
     }
     
+    //MARK: 뷰디드로드
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let task = UserTodo(todoTitle: "쌀사기")
-        try! localRealm.write {
-            localRealm.add(task)
-        }
-        
+        fetchData()
+        mainview.headerview.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 100)
+        mainview.headerview.backgroundColor = .brown
+        mainview.headerview.layoutIfNeeded()
+        mainview.tableView.tableHeaderView = mainview.headerview
         mainview.tableView.delegate = self
         mainview.tableView.dataSource = self
-       
-        mainview.tableView.tableHeaderView = headerview
         
         mainview.tableView.register(ShopptingListTableViewCell_re.self, forCellReuseIdentifier: ShopptingListTableViewCell_re.reuseIdentifier)
         
         print("Realm is located at:", localRealm.configuration.fileURL!)
-
-        view.backgroundColor = .systemBlue
         
-        headerview.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 100)
-        headerview.layoutIfNeeded()
+        view.backgroundColor = .systemBlue
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        mainview.tableView.reloadData()
+       
+    }
+    
+    func fetchData() {
+        tasks = localRealm.objects(UserTodo.self).sorted(byKeyPath: "todoTitle", ascending: true)
     }
     
     override func configure() {
         mainview.plusButton.addTarget(self, action: #selector(pulsRowTodoList), for: .touchUpInside)
-        mainview.insertTextField.addTarget(self, action: #selector(doEndEaditing), for: .touchUpInside)
+        mainview.insertTextField.addTarget(self, action: #selector(doEndEditing), for: .editingDidEndOnExit)
         
-//        let sortButton = UIBarButtonItem(title: "정렬", style: .plain, target: self, action: #selector(sortButtonClicked))
-//        let filterButton = UIBarButtonItem(title: "필터", style: .plain, target: self, action: #selector(filterButtonClicked))
+        //        let sortButton = UIBarButtonItem(title: "정렬", style: .plain, target: self, action: #selector(sortButtonClicked))
+        //        let filterButton = UIBarButtonItem(title: "필터", style: .plain, target: self, action: #selector(filterButtonClicked))
         
         let sortButton = UIBarButtonItem(title: "정렬", image: nil, primaryAction: nil, menu: sortMenu)
-//        let filterButton = UIBarButtonItem(title: "필터", image: nil, primaryAction: nil, menu: <#T##UIMenu?#>)
+        //        let filterButton = UIBarButtonItem(title: "필터", image: nil, primaryAction: nil, menu: <#T##UIMenu?#>)
         navigationItem.leftBarButtonItem = sortButton
     }
     
@@ -84,7 +87,7 @@ class ShoppingListViewController: BaseViewController {
     }
     
     @objc func sortButtonClicked() {
-       
+        
     }
     
     @objc func filterButtonClicked() {
@@ -93,50 +96,55 @@ class ShoppingListViewController: BaseViewController {
     }
     
     @objc func pulsRowTodoList() {
+        // 이렇게 전체 데이터를 가져오는 등의 과정이 필요함. 화면과 데이터는 따로
         let task = UserTodo(todoTitle: mainview.insertTextField.text!)
         print(task)
         print(#function)
-        try! localRealm.write {
-            localRealm.add(task)
-            print("림 성공쓰")
-            
-            mainview.tableView.reloadData()
-            print(task)
+        
+        do {
+            try localRealm.write {
+                localRealm.add(task)
+                print("림 성공쓰")
+            }
+        } catch let error {
+            print("텍스트 필드 림, \(error)")
         }
+        
+        fetchData() // 여기서 수정된 테이블 림에 반영해주기
+        mainview.tableView.resignFirstResponder()
     }
     
-    @objc func doEndEaditing() {
+    @objc func doEndEditing() {
         view.endEditing(true)
     }
 }
 
 extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource {
     
-//    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let view = UIView()
-//        let frame = CGRect(x: 0, y: 5, width: 414, height: 1)
-//        view.backgroundColor = UIColor.gray
-//
-//        view.frame(forAlignmentRect: frame)
-//        return view
-//    }
-//
-
-//    func updateLayout() {
-//        self.mainview.setNeedsLayout()
-//        self.mainview.layoutIfNeeded()
-//    }
-//
+    //    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    //        let view = UIView()
+    //        let frame = CGRect(x: 0, y: 5, width: 414, height: 1)
+    //        view.backgroundColor = UIColor.gray
+    //
+    //        view.frame(forAlignmentRect: frame)
+    //        return view
+    //    }
+    //
+    
+    //    func updateLayout() {
+    //        self.mainview.setNeedsLayout()
+    //        self.mainview.layoutIfNeeded()
+    //    }
+    //
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         100
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // 이렇게 전체 데이터를 가져오는 등의 과정이 필요함. 화면과 데이터는 따로
-        tasks = localRealm.objects(UserTodo.self).sorted(byKeyPath: "todoTitle", ascending: true)
+        print("Realm is located at:", localRealm.configuration.fileURL!)
         print(tasks.count)
-       return tasks.count
+        return tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -148,7 +156,7 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
         cell.favoriteButton.addTarget(self, action: #selector(clickedfavoriteButton), for: .touchUpInside)
         let image = tasks[cellIndex!].favorite ? "star.fill" : "star"
         cell.favoriteButton.imageView?.image = UIImage(systemName: image)
-       
+        
         return cell
     }
     
@@ -160,20 +168,20 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
         let image = tasks[indexPath.row].checkbox ? "checkmark.square.fill" : "checkmark.square"
         cell.imageview.image = UIImage(systemName: image)
     }
-
-     // 편집기능을 넣어줄거야 이게 있어야 삭제도 편집도 가능함
+    
+    // 편집기능을 넣어줄거야 이게 있어야 삭제도 편집도 가능함
     //canEditRowAt이 있어야 스와이프 삭제도 가능한 건가요? 넹
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-           
-           if editingStyle == .delete {
-               let item = tasks?[indexPath.row]
-               try! localRealm.write {
-                   localRealm.delete(item!)
-               }
-               tableView.reloadData()
-           }
-       }
+        
+        if editingStyle == .delete {
+            let item = tasks?[indexPath.row]
+            try! localRealm.write {
+                localRealm.delete(item!)
+            }
+            //               tableView.reloadData()
+        }
+    }
     
     @objc
     func clickedfavoriteButton() {
