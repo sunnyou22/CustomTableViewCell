@@ -14,6 +14,7 @@ class ShopptingListTableViewCell_re: BaseTableViewCell {
     
     let containView: UIView = {
         let view = UIView()
+        view.backgroundColor = #colorLiteral(red: 0.9610450864, green: 0.8862027526, blue: 0.7589734197, alpha: 1)
         return view
     }()
     
@@ -53,15 +54,13 @@ class ShopptingListTableViewCell_re: BaseTableViewCell {
     
     override func configure() {
         [imageview, todoLabel, favoriteButton].forEach { containView.addSubview($0) }
-        self.addSubview(containView)
+        contentView.addSubview(containView)
+        self.addSubview(contentView)
     }
     
     override func setConstraints() {
         containView.snp.makeConstraints { make in
-            make.top.equalTo(self.snp.top).offset(4)
-            make.bottom.equalTo(self.snp.bottom).offset(4)
-            make.trailing.equalTo(self.snp.trailing).offset(20)
-            make.leading.equalTo(self).offset(20)
+            make.edges.equalTo(self)
         }
         
         imageview.snp.makeConstraints { make in
@@ -79,8 +78,9 @@ class ShopptingListTableViewCell_re: BaseTableViewCell {
         }
         
         favoriteButton.snp.makeConstraints { make in
-            make.top.equalTo(containView.snp.top).offset(8)
-            make.bottom.equalTo(containView.snp.bottom).offset(8)
+            make.centerY.equalTo(todoLabel)
+            make.width.equalTo(44)
+            make.height.equalTo(44)
         }
     }
     

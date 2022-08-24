@@ -12,8 +12,8 @@ class CustomFont: UIFont {
     static let shared = CustomFont()
     
    static let attributes = [
-    NSAttributedString.Key.foregroundColor: UIColor.gray,
-    NSAttributedString.Key.font : UIFont(name: "systemFont", size: 13)
+    NSAttributedString.Key.foregroundColor: UIColor.lightGray,
+    NSAttributedString.Key.font : UIFont(name: "systemFont", size: 15)
 ]
     
     func chekFontName() {

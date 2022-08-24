@@ -19,7 +19,7 @@ class ShoppingListViewController: BaseViewController {
             mainview.tableView.reloadData()
         }
     }
-    var cellIndex: Int?
+    var cellIndex: IndexPath?
     
     //MARK: 로드뷰
     override func loadView() {
@@ -31,7 +31,7 @@ class ShoppingListViewController: BaseViewController {
         super.viewDidLoad()
         fetchData()
         mainview.headerview.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 100)
-        mainview.headerview.backgroundColor = .brown
+        mainview.headerview.backgroundColor = #colorLiteral(red: 0.9610450864, green: 0.8862027526, blue: 0.7589734197, alpha: 1)
         mainview.headerview.layoutIfNeeded()
         mainview.tableView.tableHeaderView = mainview.headerview
         mainview.tableView.delegate = self
@@ -63,6 +63,12 @@ class ShoppingListViewController: BaseViewController {
         let sortButton = UIBarButtonItem(title: "정렬", image: nil, primaryAction: nil, menu: sortMenu)
         //        let filterButton = UIBarButtonItem(title: "필터", image: nil, primaryAction: nil, menu: <#T##UIMenu?#>)
         navigationItem.leftBarButtonItem = sortButton
+        
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.backgroundColor = .systemBackground
+        navigationItem.scrollEdgeAppearance = barAppearance
+        
+        
     }
     
     var sortmenuItemList: [UIAction] {
@@ -138,35 +144,58 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
     //
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        100
+        80
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        60
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Realm is located at:", localRealm.configuration.fileURL!)
-        print(tasks.count)
         return tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ShopptingListTableViewCell_re.reuseIdentifier, for: indexPath) as! ShopptingListTableViewCell_re
         
-        cellIndex = indexPath.row
+        cellIndex = indexPath
         cell.backgroundColor = .systemGray6
         cell.todoLabel.text = tasks[indexPath.row].todoTitle
         cell.favoriteButton.addTarget(self, action: #selector(clickedfavoriteButton), for: .touchUpInside)
-        let image = tasks[cellIndex!].favorite ? "star.fill" : "star"
+        let image = tasks[cellIndex!.row].favorite ? "star.fill" : "star"
         cell.favoriteButton.imageView?.image = UIImage(systemName: image)
+        cell.separatorInset.left = 0
+//        mainview.tableView.reloadData()
+        
         
         return cell
     }
     
+    @objc
+    func clickedfavoriteButton(index: IndexPath) {
+        
+        try! self.localRealm.write({
+            self.tasks[index.row].favorite.toggle()
+            print( self.tasks[cellIndex!.row].favorite)
+        })
+
+//        mainview.tableView.reloadRows(at: [cellIndex!], with: .none)
+        fetchData() // 이것보다 따로 패치해주는게 좋을ㄷ스
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.dequeueReusableCell(withIdentifier: ShopptingListTableViewCell_re.reuseIdentifier, for: indexPath) as! ShopptingListTableViewCell_re
+        
         try! self.localRealm.write({
-            self.tasks[indexPath.row].checkbox = !self.tasks[indexPath.row].checkbox
+            self.tasks[indexPath.row].checkbox.toggle()
+            print("==========", tasks[indexPath.row].checkbox)
+            print(tasks[indexPath.row].favorite)
         })
+        
         let image = tasks[indexPath.row].checkbox ? "checkmark.square.fill" : "checkmark.square"
         cell.imageview.image = UIImage(systemName: image)
+        
+//        fetchData()
     }
     
     // 편집기능을 넣어줄거야 이게 있어야 삭제도 편집도 가능함
@@ -179,16 +208,8 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
             try! localRealm.write {
                 localRealm.delete(item!)
             }
-            //               tableView.reloadData()
         }
-    }
-    
-    @objc
-    func clickedfavoriteButton() {
-        
-        try! self.localRealm.write({
-            self.tasks[cellIndex!].favorite = !self.tasks[cellIndex!].favorite
-        })
+        fetchData()
     }
     
     //MARK: 질문 이걸 넣어주지 않아도 괜찮으넉? 아예 넣을 수 없다고 뜨긴함 -> 알아보기
