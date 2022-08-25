@@ -41,6 +41,11 @@ class ShopptingListTableViewCell_re: BaseTableViewCell {
         return view
     }()
     
+    var selectedImageView: UIImageView = {
+        let view = UIImageView()
+        return view
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -53,7 +58,7 @@ class ShopptingListTableViewCell_re: BaseTableViewCell {
     }
     
     override func configure() {
-        [checkBox, todoLabel, favoriteButton].forEach { containView.addSubview($0) }
+        [checkBox, todoLabel, favoriteButton, selectedImageView].forEach { containView.addSubview($0) }
         contentView.addSubview(containView)
         self.addSubview(contentView)
     }
@@ -81,6 +86,14 @@ class ShopptingListTableViewCell_re: BaseTableViewCell {
             make.centerY.equalTo(todoLabel)
             make.width.equalTo(44)
             make.height.equalTo(44)
+        }
+        
+        selectedImageView.snp.makeConstraints { make in
+            make.centerY.equalTo(todoLabel)
+            make.leading.equalTo(favoriteButton.snp.trailing).offset(8)
+            make.trailing.equalTo(containView.snp.trailing).offset(8)
+            make.width.equalTo(50)
+            make.height.equalTo(50)
         }
     }
     

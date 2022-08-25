@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import RealmSwift
+import PhotosUI
 
 class ShoppingListViewController: BaseViewController {
     
@@ -19,6 +20,12 @@ class ShoppingListViewController: BaseViewController {
             mainview.tableView.reloadData()
         }
     }
+    var configuration = PHPickerConfiguration()
+    var selectedImage: UIImageView? {
+        didSet {
+            print("===> 값이 바뀜") // 값이 바뀌지 않음
+        }
+    }
     
     //MARK: 로드뷰
     override func loadView() {
@@ -28,6 +35,8 @@ class ShoppingListViewController: BaseViewController {
     //MARK: 뷰디드로드
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(#function)
+        
         fetchData()
         mainview.headerview.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 100)
         mainview.headerview.backgroundColor = #colorLiteral(red: 0.9610450864, green: 0.8862027526, blue: 0.7589734197, alpha: 1)
@@ -43,12 +52,7 @@ class ShoppingListViewController: BaseViewController {
         view.backgroundColor = .systemBlue
         fetchDocumentZipFile()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-       
-    }
-    
+
     func fetchData() {
         tasks = localRealm.objects(UserTodo.self).sorted(byKeyPath: "todoTitle", ascending: true)
     }
@@ -62,9 +66,13 @@ class ShoppingListViewController: BaseViewController {
         
         
         let setting = UIBarButtonItem(title: "설정", style: .plain, target: self, action: #selector(gosetting))
-        navigationItem.rightBarButtonItem = setting
+        let cameraButton = UIBarButtonItem(title: "카메라", style: .plain, target: self, action: #selector(buttonClicked(_:)))
+        
+        navigationItem.rightBarButtonItems = [setting, cameraButton]
+        
         let sortButton = UIBarButtonItem(title: "정렬", image: nil, primaryAction: nil, menu: sortMenu)
         //        let filterButton = UIBarButtonItem(title: "필터", image: nil, primaryAction: nil, menu: <#T##UIMenu?#>)
+       
         navigationItem.leftBarButtonItem = sortButton
         
         let barAppearance = UINavigationBarAppearance()
@@ -126,7 +134,7 @@ class ShoppingListViewController: BaseViewController {
             print("텍스트 필드 림, \(error)")
         }
         
-        fetchData() // 여기서 수정된 테이블 림에 반영해주기
+        fetchData() // 여기서 수정된 테이블 가져오기
         mainview.tableView.resignFirstResponder()
         mainview.insertTextField.text = nil
     }
@@ -136,6 +144,7 @@ class ShoppingListViewController: BaseViewController {
     }
 }
 
+//MARK: - 테이블
 extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource {
     
     //    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -155,20 +164,33 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
     //
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        80
+        print(#function)
+        
+        return 80
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        60
+        print(#function)
+        return 100
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(#function)
         return tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print(#function)
         let cell = tableView.dequeueReusableCell(withIdentifier: ShopptingListTableViewCell_re.reuseIdentifier, for: indexPath) as! ShopptingListTableViewCell_re
         
+        guard let pickedImage = selectedImage else {
+            cell.selectedImageView.image = UIImage(systemName: "heart.fill")
+            print("====선택된 이미지가 아직 없습니다")
+            return UITableViewCell()
+        }
+        
+        cell.selectedImageView.image = pickedImage.image
+print("====> 이미지 받아옴")
         cell.backgroundColor = .systemGray6
         cell.todoLabel.text = tasks[indexPath.row].todoTitle
         
@@ -181,9 +203,8 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
         cell.favoriteButton.setImage( UIImage(systemName: image), for: .normal)
         let image1 = tasks[indexPath.row].checkbox ? "checkmark.square.fill" : "checkmark.square"
         cell.checkBox.image = UIImage(systemName: image1)
-                
         cell.separatorInset.left = 0
-//
+
         return cell
     }
     
@@ -202,22 +223,16 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ShopptingListTableViewCell_re.reuseIdentifier, for: indexPath) as! ShopptingListTableViewCell_re
         let taskindex = tasks[indexPath.row]
         
         try! self.localRealm.write({
             taskindex.checkbox.toggle()
             mainview.tableView.reloadData()
         })
-        
-       
-        
-//        fetchData()
     }
     
     // 편집기능을 넣어줄거야 이게 있어야 삭제도 편집도 가능함
     //canEditRowAt이 있어야 스와이프 삭제도 가능한 건가요? 넹
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
@@ -226,14 +241,12 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
             try! localRealm.write {
                 localRealm.delete(tasks[indexPath.row])
             }
-
         }
         fetchData()
         tableView.reloadData()
     }
     
     //MARK: 질문 이걸 넣어주지 않아도 괜찮으넉? 아예 넣을 수 없다고 뜨긴함 -> 알아보기
-    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         true
     }
