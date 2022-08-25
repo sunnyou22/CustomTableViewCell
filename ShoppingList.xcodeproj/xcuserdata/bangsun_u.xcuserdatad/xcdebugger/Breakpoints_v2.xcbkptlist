@@ -7,22 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7218CC96-AB52-4E34-847C-ADD6404ACCB7"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ShoppingList/CodeBaseShoppingList/ShoppingList/ShoppingListViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "clickedfavoriteButton(index:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "0640B1CC-CB56-4A2D-8171-A9E801E9D8B2"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -48,7 +32,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "43"
                   endingLineNumber = "43"
-                  offsetFromSymbolStart = "196">
+                  offsetFromSymbolStart = "256">
                </Location>
                <Location
                   uuid = "0640B1CC-CB56-4A2D-8171-A9E801E9D8B2 - 77f7beb1c1dab498"
@@ -141,100 +125,6 @@
                   offsetFromSymbolStart = "232">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "231B0D50-E5F0-4F57-B886-C48F4685B384"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ShoppingList/CodeBaseShoppingList/ShoppingList/ShopptingListTableViewCell_re.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "containView"
-            landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "231B0D50-E5F0-4F57-B886-C48F4685B384 - a0e1a459189e0729"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; __C.UIView in variable initialization expression of ShoppingList.ShopptingListTableViewCell_re.containView : __C.UIView"
-                  moduleName = "ShoppingList"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bangsun_u/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7/ShoppingList%20copy/ShoppingList/CodeBaseShoppingList/ShoppingList/ShopptingListTableViewCell_re.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
-                  offsetFromSymbolStart = "28">
-               </Location>
-               <Location
-                  uuid = "231B0D50-E5F0-4F57-B886-C48F4685B384 - 693622fa595259f3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ShoppingList.ShopptingListTableViewCell_re.containView.getter : __C.UIView"
-                  moduleName = "ShoppingList"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bangsun_u/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7/ShoppingList%20copy/ShoppingList/CodeBaseShoppingList/ShoppingList/ShopptingListTableViewCell_re.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "48">
-               </Location>
-               <Location
-                  uuid = "231B0D50-E5F0-4F57-B886-C48F4685B384 - 97e8164987b5ca3c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ShoppingList.ShopptingListTableViewCell_re.init(style: __C.UITableViewCellStyle, reuseIdentifier: Swift.Optional&lt;Swift.String&gt;) -&gt; ShoppingList.ShopptingListTableViewCell_re"
-                  moduleName = "ShoppingList"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bangsun_u/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7/ShoppingList%20copy/ShoppingList/CodeBaseShoppingList/ShoppingList/ShopptingListTableViewCell_re.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "100">
-               </Location>
-               <Location
-                  uuid = "231B0D50-E5F0-4F57-B886-C48F4685B384 - f5ec807a1c3044ce"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ShoppingList.ShopptingListTableViewCell_re.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;ShoppingList.ShopptingListTableViewCell_re&gt;"
-                  moduleName = "ShoppingList"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bangsun_u/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7/ShoppingList%20copy/ShoppingList/CodeBaseShoppingList/ShoppingList/ShopptingListTableViewCell_re.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "92">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5AC25CF6-18AA-4057-8A86-E396BAED1F3B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ShoppingList/CodeBaseShoppingList/ShoppingList/ShoppingListViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

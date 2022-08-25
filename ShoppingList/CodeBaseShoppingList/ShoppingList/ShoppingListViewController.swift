@@ -60,6 +60,9 @@ class ShoppingListViewController: BaseViewController {
         //        let sortButton = UIBarButtonItem(title: "정렬", style: .plain, target: self, action: #selector(sortButtonClicked))
         //        let filterButton = UIBarButtonItem(title: "필터", style: .plain, target: self, action: #selector(filterButtonClicked))
         
+        
+        let setting = UIBarButtonItem(title: "설정", style: .plain, target: self, action: <#T##Selector?#>)
+        
         let sortButton = UIBarButtonItem(title: "정렬", image: nil, primaryAction: nil, menu: sortMenu)
         //        let filterButton = UIBarButtonItem(title: "필터", image: nil, primaryAction: nil, menu: <#T##UIMenu?#>)
         navigationItem.leftBarButtonItem = sortButton
@@ -92,6 +95,7 @@ class ShoppingListViewController: BaseViewController {
         return sortMenu
     }
     
+    //MARK: 네이바버튼 구현
     @objc func sortButtonClicked() {
         
     }
@@ -99,6 +103,12 @@ class ShoppingListViewController: BaseViewController {
     @objc func filterButtonClicked() {
         
         
+    }
+    
+    @objc func gosetting() {
+        let vc = BackUpViewController()
+
+        tran
     }
     
     @objc func pulsRowTodoList() {
