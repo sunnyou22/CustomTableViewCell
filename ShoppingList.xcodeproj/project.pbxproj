@@ -14,6 +14,7 @@
 		902579E828B7560A00BB3501 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 902579E728B7560A00BB3501 /* SnapKit */; };
 		902579EC28B756EE00BB3501 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 902579EB28B756EE00BB3501 /* Realm */; };
 		902579EE28B756EE00BB3501 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 902579ED28B756EE00BB3501 /* RealmSwift */; };
+		902579F428B792B600BB3501 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 902579F328B792B600BB3501 /* Zip */; };
 		903CD5E828B381CD00411649 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903CD5E728B381CD00411649 /* RealmModel.swift */; };
 		903CD5F328B3988E00411649 /* ReusableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903CD5F228B3988E00411649 /* ReusableProtocol.swift */; };
 		903CD5F528B3992200411649 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903CD5F428B3992200411649 /* BaseViewController.swift */; };
@@ -64,6 +65,7 @@
 			files = (
 				902579EE28B756EE00BB3501 /* RealmSwift in Frameworks */,
 				902579EC28B756EE00BB3501 /* Realm in Frameworks */,
+				902579F428B792B600BB3501 /* Zip in Frameworks */,
 				902579E828B7560A00BB3501 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -199,6 +201,7 @@
 				902579E728B7560A00BB3501 /* SnapKit */,
 				902579EB28B756EE00BB3501 /* Realm */,
 				902579ED28B756EE00BB3501 /* RealmSwift */,
+				902579F328B792B600BB3501 /* Zip */,
 			);
 			productName = ShoppingList;
 			productReference = 904942DC2886AED500E79CF8 /* ShoppingList.app */;
@@ -231,6 +234,7 @@
 			packageReferences = (
 				902579E628B7560A00BB3501 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				902579EA28B756EE00BB3501 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				902579F228B792B500BB3501 /* XCRemoteSwiftPackageReference "Zip" */,
 			);
 			productRefGroup = 904942DD2886AED500E79CF8 /* Products */;
 			projectDirPath = "";
@@ -513,6 +517,14 @@
 				minimumVersion = 10.0.0;
 			};
 		};
+		902579F228B792B500BB3501 /* XCRemoteSwiftPackageReference "Zip" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/Zip.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -530,6 +542,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 902579EA28B756EE00BB3501 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		902579F328B792B600BB3501 /* Zip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 902579F228B792B500BB3501 /* XCRemoteSwiftPackageReference "Zip" */;
+			productName = Zip;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

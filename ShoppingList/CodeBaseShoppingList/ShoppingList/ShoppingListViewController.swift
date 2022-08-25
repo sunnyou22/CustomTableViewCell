@@ -19,7 +19,6 @@ class ShoppingListViewController: BaseViewController {
             mainview.tableView.reloadData()
         }
     }
-    var cellIndex: IndexPath?
     
     //MARK: 로드뷰
     override func loadView() {
@@ -42,6 +41,7 @@ class ShoppingListViewController: BaseViewController {
         print("Realm is located at:", localRealm.configuration.fileURL!)
         
         view.backgroundColor = .systemBlue
+        fetchDocumentZipFile()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,8 +61,8 @@ class ShoppingListViewController: BaseViewController {
         //        let filterButton = UIBarButtonItem(title: "필터", style: .plain, target: self, action: #selector(filterButtonClicked))
         
         
-        let setting = UIBarButtonItem(title: "설정", style: .plain, target: self, action: <#T##Selector?#>)
-        
+        let setting = UIBarButtonItem(title: "설정", style: .plain, target: self, action: #selector(gosetting))
+        navigationItem.rightBarButtonItem = setting
         let sortButton = UIBarButtonItem(title: "정렬", image: nil, primaryAction: nil, menu: sortMenu)
         //        let filterButton = UIBarButtonItem(title: "필터", image: nil, primaryAction: nil, menu: <#T##UIMenu?#>)
         navigationItem.leftBarButtonItem = sortButton
@@ -108,7 +108,7 @@ class ShoppingListViewController: BaseViewController {
     @objc func gosetting() {
         let vc = BackUpViewController()
 
-        tran
+        transition(vc, transitionStyle: .push)
     }
     
     @objc func pulsRowTodoList() {
@@ -128,6 +128,7 @@ class ShoppingListViewController: BaseViewController {
         
         fetchData() // 여기서 수정된 테이블 림에 반영해주기
         mainview.tableView.resignFirstResponder()
+        mainview.insertTextField.text = nil
     }
     
     @objc func doEndEditing() {
@@ -168,42 +169,48 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ShopptingListTableViewCell_re.reuseIdentifier, for: indexPath) as! ShopptingListTableViewCell_re
         
-        cellIndex = indexPath
         cell.backgroundColor = .systemGray6
         cell.todoLabel.text = tasks[indexPath.row].todoTitle
-        cell.favoriteButton.addTarget(self, action: #selector(clickedfavoriteButton), for: .touchUpInside)
-        let image = tasks[cellIndex!.row].favorite ? "star.fill" : "star"
-        cell.favoriteButton.imageView?.image = UIImage(systemName: image)
+        
+        cell.favoriteButton.tag = indexPath.row
+        cell.checkBox.tag = indexPath.row
+        
+        cell.favoriteButton.addTarget(self, action: #selector(clickedfavoriteButton(_:)), for: .touchUpInside)
+        
+        let image = tasks[indexPath.row].favorite ? "star.fill" : "star"
+        cell.favoriteButton.setImage( UIImage(systemName: image), for: .normal)
+        let image1 = tasks[indexPath.row].checkbox ? "checkmark.square.fill" : "checkmark.square"
+        cell.checkBox.image = UIImage(systemName: image1)
+                
         cell.separatorInset.left = 0
-//        mainview.tableView.reloadData()
-        
-        
+//
         return cell
     }
     
     @objc
-    func clickedfavoriteButton(index: IndexPath) {
-        
-        try! self.localRealm.write({
-            self.tasks[index.row].favorite.toggle()
-            print( self.tasks[cellIndex!.row].favorite)
+    func clickedfavoriteButton(_ sender: UIButton) {
+        let taskIndex = tasks[sender.tag]
+        try! localRealm.write({
+//            taskIndex.favorite.toggle()
+            taskIndex.favorite = !taskIndex.favorite
+          
+//            self.localRealm.create(UserTodo.self,
+//                             value: ["objectID": self.tasks[indexPath.row].objectId, "favorite": ],
+//                             update: .modified)
         })
-
-//        mainview.tableView.reloadRows(at: [cellIndex!], with: .none)
-        fetchData() // 이것보다 따로 패치해주는게 좋을ㄷ스
+        mainview.tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.dequeueReusableCell(withIdentifier: ShopptingListTableViewCell_re.reuseIdentifier, for: indexPath) as! ShopptingListTableViewCell_re
+        let taskindex = tasks[indexPath.row]
         
         try! self.localRealm.write({
-            self.tasks[indexPath.row].checkbox.toggle()
-            print("==========", tasks[indexPath.row].checkbox)
-            print(tasks[indexPath.row].favorite)
+            taskindex.checkbox.toggle()
+            mainview.tableView.reloadData()
         })
         
-        let image = tasks[indexPath.row].checkbox ? "checkmark.square.fill" : "checkmark.square"
-        cell.imageview.image = UIImage(systemName: image)
+       
         
 //        fetchData()
     }
@@ -214,12 +221,15 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            let item = tasks?[indexPath.row]
+//            let item = tasks?[indexPath.row]
+            removeImageFromDocument(fileName: "\(tasks[indexPath.row].objectID).jpg")
             try! localRealm.write {
-                localRealm.delete(item!)
+                localRealm.delete(tasks[indexPath.row])
             }
+
         }
         fetchData()
+        tableView.reloadData()
     }
     
     //MARK: 질문 이걸 넣어주지 않아도 괜찮으넉? 아예 넣을 수 없다고 뜨긴함 -> 알아보기
