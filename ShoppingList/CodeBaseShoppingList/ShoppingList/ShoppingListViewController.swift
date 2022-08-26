@@ -21,11 +21,7 @@ class ShoppingListViewController: BaseViewController {
         }
     }
     var configuration = PHPickerConfiguration()
-    var selectedImage: UIImageView? {
-        didSet {
-            print("===> 값이 바뀜") // 값이 바뀌지 않음
-        }
-    }
+    var selectedImage: UIImageView?
     
     //MARK: 로드뷰
     override func loadView() {
@@ -190,7 +186,7 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
         }
         
         cell.selectedImageView.image = pickedImage.image
-print("====> 이미지 받아옴")
+print("====> 이미지 받아옴", pickedImage)
         cell.backgroundColor = .systemGray6
         cell.todoLabel.text = tasks[indexPath.row].todoTitle
         

@@ -61,13 +61,15 @@ extension ShoppingListViewController: PHPickerViewControllerDelegate {
     
         let itemProvider = results.first?.itemProvider
         
+        
         if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { (img, error) in
                 DispatchQueue.main.async {
-                   self.selectedImage?.image = img as? UIImage
-                    print("====> 이미지선택 완료")
-                    print(img) // 이미지는 잘 들어옴
-                    self.mainview.tableView.reloadData()
+                    let testimg = img as? UIImage
+                    self.selectedImage?.image = testimg
+                    print("====> 이미지선택 완료", testimg)
+                    print(self.selectedImage?.image) // 이미지는 잘 들어옴
+//                    self.mainview.tableView.reloadData()
                 }
             }
         }
