@@ -21,7 +21,9 @@ class ShoppingListViewController: BaseViewController {
         }
     }
     var configuration = PHPickerConfiguration()
-    var selectedImage: UIImageView?
+    var selectedImage: UIImage?
+    var objectID: ObjectId?
+   
     
     //MARK: 로드뷰
     override func loadView() {
@@ -32,7 +34,7 @@ class ShoppingListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print(#function)
-        
+
         fetchData()
         mainview.headerview.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 100)
         mainview.headerview.backgroundColor = #colorLiteral(red: 0.9610450864, green: 0.8862027526, blue: 0.7589734197, alpha: 1)
@@ -42,6 +44,7 @@ class ShoppingListViewController: BaseViewController {
         mainview.tableView.dataSource = self
         
         mainview.tableView.register(ShopptingListTableViewCell_re.self, forCellReuseIdentifier: ShopptingListTableViewCell_re.reuseIdentifier)
+        
         
         print("Realm is located at:", localRealm.configuration.fileURL!)
         
@@ -56,6 +59,7 @@ class ShoppingListViewController: BaseViewController {
     override func configure() {
         mainview.plusButton.addTarget(self, action: #selector(pulsRowTodoList), for: .touchUpInside)
         mainview.insertTextField.addTarget(self, action: #selector(doEndEditing), for: .editingDidEndOnExit)
+
         
         //        let sortButton = UIBarButtonItem(title: "정렬", style: .plain, target: self, action: #selector(sortButtonClicked))
         //        let filterButton = UIBarButtonItem(title: "필터", style: .plain, target: self, action: #selector(filterButtonClicked))
@@ -136,7 +140,7 @@ class ShoppingListViewController: BaseViewController {
     }
     
     @objc func doEndEditing() {
-        view.endEditing(true)
+        mainview.insertTextField.resignFirstResponder()
     }
 }
 
@@ -178,28 +182,37 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print(#function)
         let cell = tableView.dequeueReusableCell(withIdentifier: ShopptingListTableViewCell_re.reuseIdentifier, for: indexPath) as! ShopptingListTableViewCell_re
+        let row = tasks[indexPath.row]
+        //이미지 받아오기
         
-        guard let pickedImage = selectedImage else {
-            cell.selectedImageView.image = UIImage(systemName: "heart.fill")
-            print("====선택된 이미지가 아직 없습니다")
-            return UITableViewCell()
-        }
-        
-        cell.selectedImageView.image = pickedImage.image
-print("====> 이미지 받아옴", pickedImage)
         cell.backgroundColor = .systemGray6
-        cell.todoLabel.text = tasks[indexPath.row].todoTitle
+        cell.todoLabel.text = row.todoTitle
         
         cell.favoriteButton.tag = indexPath.row
         cell.checkBox.tag = indexPath.row
+        cell.selectedImageView.tag  = indexPath.row
         
         cell.favoriteButton.addTarget(self, action: #selector(clickedfavoriteButton(_:)), for: .touchUpInside)
         
-        let image = tasks[indexPath.row].favorite ? "star.fill" : "star"
+        let image = row.favorite ? "star.fill" : "star"
         cell.favoriteButton.setImage( UIImage(systemName: image), for: .normal)
-        let image1 = tasks[indexPath.row].checkbox ? "checkmark.square.fill" : "checkmark.square"
+        let image1 = row.checkbox ? "checkmark.square.fill" : "checkmark.square"
         cell.checkBox.image = UIImage(systemName: image1)
         cell.separatorInset.left = 0
+        
+        cell.selectedImageView.addTarget(self, action: #selector(buttonClicked(_:)), for: .touchUpInside)
+        //코드위치 중요
+        
+        guard let pickedImage = selectedImage else {
+            cell.selectedImageView.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            print("====선택된 이미지가 아직 없습니다")
+            return cell
+        }
+        
+        cell.selectedImageView.setImage(loadImageFromDocument(fileName: "\(objectID).jpg"), for: .normal)
+        print(row.objectID)
+print("====> 이미지 받아옴", pickedImage)
+        
 
         return cell
     }
@@ -231,15 +244,16 @@ print("====> 이미지 받아옴", pickedImage)
     //canEditRowAt이 있어야 스와이프 삭제도 가능한 건가요? 넹
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
+        let item = tasks?[indexPath.row]
+        
+        removeImageFromDocument(fileName: "\(item!.objectID).jpg")
         if editingStyle == .delete {
-//            let item = tasks?[indexPath.row]
-            removeImageFromDocument(fileName: "\(tasks[indexPath.row].objectID).jpg")
             try! localRealm.write {
-                localRealm.delete(tasks[indexPath.row])
+                localRealm.delete(item!)
             }
         }
-        fetchData()
-        tableView.reloadData()
+//        fetchData()
+//        tableView.reloadData()
     }
     
     //MARK: 질문 이걸 넣어주지 않아도 괜찮으넉? 아예 넣을 수 없다고 뜨긴함 -> 알아보기

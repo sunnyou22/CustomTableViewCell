@@ -17,5 +17,6 @@ class BaseViewController: UIViewController {
     }
     
     func configure() { }
+    
     func setConstraints() { }
 }

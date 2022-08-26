@@ -37,12 +37,13 @@ class ShopptingListTableViewCell_re: BaseTableViewCell {
     let favoriteButton: UIButton = {
         let view = UIButton()
         view.setImage(UIImage(systemName: "star.fill"), for: .normal)
+        view.contentMode = .scaleAspectFill
         
         return view
     }()
     
-    var selectedImageView: UIImageView = {
-        let view = UIImageView()
+  lazy var selectedImageView: UIButton = {
+        let view = UIButton()
         return view
     }()
     

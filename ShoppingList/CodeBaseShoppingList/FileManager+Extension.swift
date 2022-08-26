@@ -41,13 +41,15 @@ extension UIViewController {
     
     func saveImageToDocument(fileName: String, image: UIImage) {
         guard let documentdirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-        let fileURL = documentdirectory.appendingPathComponent(fileName)
+        let fileURL = documentdirectory.appendingPathComponent(fileName) // 이미지에 유알엘을 만들어줌
         guard let data = image.jpegData(compressionQuality: 0.5) else { return }
         
         do {
-            try data.write(to: fileURL)
+            try data.write(to: fileURL) // 그 유알엘을 이미지에 매칭해줌
         } catch let error {
             print("file save error", error)
         }
+        
+        //어떻게 매칭해줘? 그 유알엘 자체가 저장해주는 역할임~ 유알엘만드는 자체가 해당 도큐에 저장하는 것
     }
 }

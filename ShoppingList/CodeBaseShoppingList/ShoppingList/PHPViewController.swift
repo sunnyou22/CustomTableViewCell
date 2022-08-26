@@ -41,7 +41,7 @@ extension ShoppingListViewController {
         }
     }
         
-        @objc func buttonClicked(_ sender: UIBarButtonItem) {
+        @objc func buttonClicked(_ sender: UIButton) {
             checkAccessLevel()
             setAccessLevel()
             configuration.selectionLimit = 1
@@ -64,14 +64,17 @@ extension ShoppingListViewController: PHPickerViewControllerDelegate {
         
         if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { (img, error) in
+                
+                self.selectedImage = img as? UIImage
+                guard let objectID = self.objectID, let image = self.selectedImage else { return }
+                self.saveImageToFolder(foldername: .todoImageFolder, filename: "\(objectID).jpg", image: image)
+                print("======> 이미지 들어왔나?", image)
                 DispatchQueue.main.async {
-                    let testimg = img as? UIImage
-                    self.selectedImage?.image = testimg
-                    print("====> 이미지선택 완료", testimg)
-                    print(self.selectedImage?.image) // 이미지는 잘 들어옴
-//                    self.mainview.tableView.reloadData()
+                    self.mainview.tableView.reloadData()
                 }
             }
+        } else {
+            print("=====> 픽커 이미지 셀렉트 실패")
         }
     }
     
