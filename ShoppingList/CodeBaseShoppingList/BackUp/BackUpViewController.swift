@@ -91,6 +91,7 @@ extension BackUpViewController: UIDocumentPickerDelegate {
         // 우리가 백업파일을 url배열로 저장했으니까 파라미터가 배열임
         // 배열안에 url이 있는지 먼저 확인
         //근데 이미지가 있으니까 first로 하면 안될듯한디
+        //실제로 복구가 안됐거나 복구한 파일과
         guard let selectedFileURL = urls.first else {
             print("🔗\(urls.first)🔗")
             showAlert(title: "선택하신 파일을 찾을 수 없습니다.")

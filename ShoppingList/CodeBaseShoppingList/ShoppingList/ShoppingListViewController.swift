@@ -14,7 +14,7 @@ class ShoppingListViewController: BaseViewController {
     
     let mainview = ShoppingListView()
     //    let headerview = UIView()
-    let localRealm = try! Realm() // Realm2 데이터베이스에 테이블 수정추가 등 반영해주기 위한 선언
+    let localRealm = try! Realm( // Realm2 데이터베이스에 테이블 수정추가 등 반영해주기 위한 선언
     var tasks: Results<UserTodo>! {
         didSet {
             mainview.tableView.reloadData()
@@ -54,6 +54,7 @@ class ShoppingListViewController: BaseViewController {
         super.viewWillAppear(animated)
         print("=====>", #function)
         mainview.tableView.reloadData()
+        print("Realm is located at:", localRealm.configuration.fileURL!)
     }
     
     func fetchData() {
