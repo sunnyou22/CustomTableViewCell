@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension UIViewController {
-   
+    
     //도큐먼트에서 이미지 가져와 로드하기
     func loadImageFromDocument(fileName: String) -> UIImage? {
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil } // 내 앱에 해당되는 도큐먼트 폴더가 있늬?
@@ -24,16 +24,40 @@ extension UIViewController {
         let image = UIImage(contentsOfFile: fileURL.path)
         return image
     }
-
-    // 도큐먼트에 잇는 이미지 삭제하기
     
+    func loadImageFromFolder(fileName: String, folderName: PathComponentName) -> UIImage? {
+        guard let documentsFolder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil}
+        let folderURL = documentsFolder.appendingPathComponent(folderName.rawValue)
+        let fileURL = folderURL.appendingPathComponent(fileName)
+        
+        if FileManager.default.fileExists(atPath: fileURL.path) {
+            return UIImage(contentsOfFile: fileURL.path)
+            
+        } else {
+            return UIImage(systemName: "person.fill.questionmark")
+        }
+    }
+    
+    // 도큐먼트에 잇는 이미지 삭제하기
     func removeImageFromDocument(fileName: String) {
         guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         
         let fileURL = documentDirectory.appendingPathComponent(fileName)
         
         do {
-            try FileManager.default.fileExists(atPath: fileURL.path)
+            try FileManager.default.removeItem(at: fileURL)
+        } catch let error {
+            print(error)
+        }
+    }
+    
+    func removeImageFromFolder(fileName: String, folderName: PathComponentName) {
+        guard let documentsFolder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        let folderURL = documentsFolder.appendingPathComponent(folderName.rawValue)
+        let fileURL = folderURL.appendingPathComponent(fileName)
+        
+        do {
+            try FileManager.default.removeItem(at: fileURL)
         } catch let error {
             print(error)
         }

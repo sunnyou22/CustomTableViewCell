@@ -12,8 +12,8 @@ import PhotosUI
 
 class ShoppingListViewController: BaseViewController {
     
-   let mainview = ShoppingListView()
-//    let headerview = UIView()
+    let mainview = ShoppingListView()
+    //    let headerview = UIView()
     let localRealm = try! Realm() // Realm2 데이터베이스에 테이블 수정추가 등 반영해주기 위한 선언
     var tasks: Results<UserTodo>! {
         didSet {
@@ -23,7 +23,6 @@ class ShoppingListViewController: BaseViewController {
     var configuration = PHPickerConfiguration()
     var selectedImage: UIImage?
     var objectID: ObjectId?
-   
     
     //MARK: 로드뷰
     override func loadView() {
@@ -33,9 +32,9 @@ class ShoppingListViewController: BaseViewController {
     //MARK: 뷰디드로드
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(#function)
-
         fetchData()
+        print(#function)
+       
         mainview.headerview.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 100)
         mainview.headerview.backgroundColor = #colorLiteral(red: 0.9610450864, green: 0.8862027526, blue: 0.7589734197, alpha: 1)
         mainview.headerview.layoutIfNeeded()
@@ -45,13 +44,18 @@ class ShoppingListViewController: BaseViewController {
         
         mainview.tableView.register(ShopptingListTableViewCell_re.self, forCellReuseIdentifier: ShopptingListTableViewCell_re.reuseIdentifier)
         
-        
         print("Realm is located at:", localRealm.configuration.fileURL!)
         
         view.backgroundColor = .systemBlue
         fetchDocumentZipFile()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("=====>", #function)
+        mainview.tableView.reloadData()
+    }
+    
     func fetchData() {
         tasks = localRealm.objects(UserTodo.self).sorted(byKeyPath: "todoTitle", ascending: true)
     }
@@ -59,7 +63,7 @@ class ShoppingListViewController: BaseViewController {
     override func configure() {
         mainview.plusButton.addTarget(self, action: #selector(pulsRowTodoList), for: .touchUpInside)
         mainview.insertTextField.addTarget(self, action: #selector(doEndEditing), for: .editingDidEndOnExit)
-
+        
         
         //        let sortButton = UIBarButtonItem(title: "정렬", style: .plain, target: self, action: #selector(sortButtonClicked))
         //        let filterButton = UIBarButtonItem(title: "필터", style: .plain, target: self, action: #selector(filterButtonClicked))
@@ -72,7 +76,7 @@ class ShoppingListViewController: BaseViewController {
         
         let sortButton = UIBarButtonItem(title: "정렬", image: nil, primaryAction: nil, menu: sortMenu)
         //        let filterButton = UIBarButtonItem(title: "필터", image: nil, primaryAction: nil, menu: <#T##UIMenu?#>)
-       
+        
         navigationItem.leftBarButtonItem = sortButton
         
         let barAppearance = UINavigationBarAppearance()
@@ -115,13 +119,15 @@ class ShoppingListViewController: BaseViewController {
     
     @objc func gosetting() {
         let vc = BackUpViewController()
-
+        
         transition(vc, transitionStyle: .push)
     }
     
     @objc func pulsRowTodoList() {
         // 이렇게 전체 데이터를 가져오는 등의 과정이 필요함. 화면과 데이터는 따로
         let task = UserTodo(todoTitle: mainview.insertTextField.text!)
+        self.objectID = task.objectID
+        
         print(task)
         print(#function)
         
@@ -183,6 +189,8 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
         print(#function)
         let cell = tableView.dequeueReusableCell(withIdentifier: ShopptingListTableViewCell_re.reuseIdentifier, for: indexPath) as! ShopptingListTableViewCell_re
         let row = tasks[indexPath.row]
+      
+        
         //이미지 받아오기
         
         cell.backgroundColor = .systemGray6
@@ -203,17 +211,9 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
         cell.selectedImageView.addTarget(self, action: #selector(buttonClicked(_:)), for: .touchUpInside)
         //코드위치 중요
         
-        guard let pickedImage = selectedImage else {
-            cell.selectedImageView.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            print("====선택된 이미지가 아직 없습니다")
-            return cell
-        }
-        
-        cell.selectedImageView.setImage(loadImageFromDocument(fileName: "\(objectID).jpg"), for: .normal)
-        print(row.objectID)
-print("====> 이미지 받아옴", pickedImage)
-        
+        cell.selectedImageView.setImage(loadImageFromFolder(fileName: "\(row.objectID).jpg", folderName: .todoImageFolder), for: .normal)
 
+        print(#function, "======>", objectID, row.objectID)
         return cell
     }
     
@@ -221,12 +221,12 @@ print("====> 이미지 받아옴", pickedImage)
     func clickedfavoriteButton(_ sender: UIButton) {
         let taskIndex = tasks[sender.tag]
         try! localRealm.write({
-//            taskIndex.favorite.toggle()
+            //            taskIndex.favorite.toggle()
             taskIndex.favorite = !taskIndex.favorite
-          
-//            self.localRealm.create(UserTodo.self,
-//                             value: ["objectID": self.tasks[indexPath.row].objectId, "favorite": ],
-//                             update: .modified)
+            
+            //            self.localRealm.create(UserTodo.self,
+            //                             value: ["objectID": self.tasks[indexPath.row].objectId, "favorite": ],
+            //                             update: .modified)
         })
         mainview.tableView.reloadData()
     }
@@ -246,14 +246,14 @@ print("====> 이미지 받아옴", pickedImage)
         
         let item = tasks?[indexPath.row]
         
-        removeImageFromDocument(fileName: "\(item!.objectID).jpg")
+        removeImageFromFolder(fileName: "\(item!.objectID).jpg", folderName: .todoImageFolder)
         if editingStyle == .delete {
             try! localRealm.write {
                 localRealm.delete(item!)
             }
         }
-//        fetchData()
-//        tableView.reloadData()
+        //        fetchData()
+                tableView.reloadData()
     }
     
     //MARK: 질문 이걸 넣어주지 않아도 괜찮으넉? 아예 넣을 수 없다고 뜨긴함 -> 알아보기

@@ -42,7 +42,7 @@ class BackUpViewController: BaseViewController {
         urlPath.append(URL(string: realmFile.path)!)
         
         do { // 백업파일 압축하기
-            let zipFilePath = try Zip.quickZipFiles(urlPath, fileName: BackUpViewController.zipFileName) // 확장자 잊지 않기
+            let zipFilePath = try Zip.quickZipFiles(urlPath, fileName: BackUpViewController.fileName) // 확장자 잊지 않기
             print("Archive Location: \(zipFilePath)")
         } catch {
             showAlert(title: "🧨압축을 실패했습니다")
@@ -113,7 +113,7 @@ extension BackUpViewController: UIDocumentPickerDelegate {
                 
                 try FileManager.default.copyItem(at: selecteeFileURL, to: sandBoxFileURL)
                 
-                let filURL = path.appendingPathComponent(BackUpViewController.zipFileName)
+                let filURL = path.appendingPathComponent(BackUpViewController.fileName)
                 
                 try Zip.unzipFile(selecteeFileURL, destination: sandBoxFileURL, overwrite: true, password: nil, progress: { progress in
                     print("pregress: \(progress)")
