@@ -66,8 +66,8 @@ class ShoppingListViewController: BaseViewController {
         super.viewWillAppear(animated)
         print("=====>", #function)
         
-        let config = Realm.Configuration(schemaVersion: 2)
-        Realm.Configuration.defaultConfiguration = config
+//        let config = Realm.Configuration(schemaVersion: 2)
+//        Realm.Configuration.defaultConfiguration = config
 //        repository.localRealm.refresh()
         fetchRealm()
         mainview.tableView.reloadData()
