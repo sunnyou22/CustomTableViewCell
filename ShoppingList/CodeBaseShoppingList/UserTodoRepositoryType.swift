@@ -37,14 +37,7 @@ protocol UserTodoRepositoryType {
 class UserTodoRepository: UserTodoRepositoryType {
     
     
-   lazy var localRealm:Realm = try! Realm() {
-        willSet {
-            do {
-                let config = Realm.Configuration(schemaVersion: 2)
-                Realm.Configuration.defaultConfiguration = config
-            }
-    }
-    }
+    var localRealm = try! Realm() 
         
         @discardableResult
         func fetch() -> Results<UserTodo> {
