@@ -23,23 +23,39 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F35B5D6C-5C90-471F-98B8-8C41AF1FD963"
+            uuid = "1ABE3FB4-55F9-4B5A-A35F-BC5755811998"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../Library/Developer/Xcode/DerivedData/ShoppingList-alfllijlievbombkmjtmppibfgzb/SourcePackages/checkouts/realm-core/src/realm/util/terminate.cpp"
+            filePath = "ShoppingList/CodeBaseShoppingList/ShoppingList/ShoppingListViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "202"
+            endingLineNumber = "202"
+            landmarkName = "tableView(_:numberOfRowsInSection:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F41F036B-4141-433D-B19C-D03807B7412D"
+            uuid = "916F9A7A-D06F-4D40-8FFD-0D6B3E099A8A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ShoppingList/CodeBaseShoppingList/ShoppingList/ShoppingListViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "loadView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5EA2D04C-B477-4376-B933-3A443470B1DF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -52,7 +68,7 @@
             landmarkType = "3">
             <Locations>
                <Location
-                  uuid = "F41F036B-4141-433D-B19C-D03807B7412D - 21c64f111293c9ae"
+                  uuid = "5EA2D04C-B477-4376-B933-3A443470B1DF - 21c64f111293c9ae"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -67,7 +83,7 @@
                   offsetFromSymbolStart = "88">
                </Location>
                <Location
-                  uuid = "F41F036B-4141-433D-B19C-D03807B7412D - fbd376be3851fd92"
+                  uuid = "5EA2D04C-B477-4376-B933-3A443470B1DF - fbd376be3851fd92"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -82,7 +98,7 @@
                   offsetFromSymbolStart = "112">
                </Location>
                <Location
-                  uuid = "F41F036B-4141-433D-B19C-D03807B7412D - ac8cff6bb26724a3"
+                  uuid = "5EA2D04C-B477-4376-B933-3A443470B1DF - ac8cff6bb26724a3"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -97,7 +113,7 @@
                   offsetFromSymbolStart = "0">
                </Location>
                <Location
-                  uuid = "F41F036B-4141-433D-B19C-D03807B7412D - 8a62023e201fc671"
+                  uuid = "5EA2D04C-B477-4376-B933-3A443470B1DF - 8a62023e201fc671"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -112,7 +128,7 @@
                   offsetFromSymbolStart = "16">
                </Location>
                <Location
-                  uuid = "F41F036B-4141-433D-B19C-D03807B7412D - 34ebe5b9832932bb"
+                  uuid = "5EA2D04C-B477-4376-B933-3A443470B1DF - 34ebe5b9832932bb"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -127,7 +143,7 @@
                   offsetFromSymbolStart = "124">
                </Location>
                <Location
-                  uuid = "F41F036B-4141-433D-B19C-D03807B7412D - 247485a9494bf3cb"
+                  uuid = "5EA2D04C-B477-4376-B933-3A443470B1DF - 247485a9494bf3cb"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -140,101 +156,6 @@
                   startingLineNumber = "14"
                   endingLineNumber = "14"
                   offsetFromSymbolStart = "100">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "07C2352E-2322-4004-AC86-DA71EAC58321"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ShoppingList/CodeBaseShoppingList/UserTodoRepositoryType.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "fetch()"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1ABE3FB4-55F9-4B5A-A35F-BC5755811998"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ShoppingList/CodeBaseShoppingList/ShoppingList/ShoppingListViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E52DCBE9-AEB1-410E-A941-1C2EC10EE3BB"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ShoppingList/CodeBaseShoppingList/ShoppingList/ShoppingListViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "ShoppingListViewController"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "E52DCBE9-AEB1-410E-A941-1C2EC10EE3BB - e5679fad398c32e6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ShoppingList.ShoppingListViewController.mainview.getter : ShoppingList.ShoppingListView"
-                  moduleName = "ShoppingList"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bangsun_u/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7/ShoppingList%20copy/ShoppingList/CodeBaseShoppingList/ShoppingList/ShoppingListViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
-                  offsetFromSymbolStart = "48">
-               </Location>
-               <Location
-                  uuid = "E52DCBE9-AEB1-410E-A941-1C2EC10EE3BB - 34ebe5b9832932f5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ShoppingList.ShoppingListViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; ShoppingList.ShoppingListViewController"
-                  moduleName = "ShoppingList"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bangsun_u/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7/ShoppingList%20copy/ShoppingList/CodeBaseShoppingList/ShoppingList/ShoppingListViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
-                  offsetFromSymbolStart = "180">
-               </Location>
-               <Location
-                  uuid = "E52DCBE9-AEB1-410E-A941-1C2EC10EE3BB - 247485a9494bf385"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ShoppingList.ShoppingListViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;ShoppingList.ShoppingListViewController&gt;"
-                  moduleName = "ShoppingList"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bangsun_u/Desktop/%E1%84%89%E1%85%A2%E1%84%8A%E1%85%A1%E1%86%A8%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%80%E1%85%B3%E1%84%85%E1%85%A2%E1%86%B7/ShoppingList%20copy/ShoppingList/CodeBaseShoppingList/ShoppingList/ShoppingListViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
-                  offsetFromSymbolStart = "156">
                </Location>
             </Locations>
          </BreakpointContent>

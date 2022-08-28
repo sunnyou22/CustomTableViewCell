@@ -65,10 +65,15 @@ class ShoppingListViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("=====>", #function)
+        
+        let config = Realm.Configuration(schemaVersion: 2)
+        Realm.Configuration.defaultConfiguration = config
+//        repository.localRealm.refresh()
         fetchRealm()
+        mainview.tableView.reloadData()
         print("Realm is located at:", repository.localRealm.configuration.fileURL!)
     }
-    
+ 
     func fetchRealm() {
         
         // Realm3. 데이터를 정렬해 tasks에 담기
@@ -135,8 +140,6 @@ class ShoppingListViewController: BaseViewController {
     @objc func gosetting() {
         let vc = BackUpViewController()
         transition(vc, transitionStyle: .push)
-        guard let testlocalRealm = vc.testlocalRealm else { return }
-            repository.localRealm = testlocalRealm
     }
     
     @objc func pulsRowTodoList() {

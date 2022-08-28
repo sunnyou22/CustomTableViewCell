@@ -127,8 +127,21 @@ extension BackUpViewController: UIDocumentPickerDelegate {
                 //이 파일을 압축을 풀거야 -> 어디에? -> 덮어쓸거야? -> 비번있어?
                 try Zip.unzipFile(fileURL, destination: path, overwrite: true, password: nil, progress: { progress in
                     print("progress: \(progress)")
-                }, fileOutputHandler: { unzippedFile in
-                    self.showAlert(title: "=====복구 완료 =====🟢")
+                }, fileOutputHandler: { [self] unzippedFile in
+                    showAlert(title: "=====복구 완료 =====🟢")
+//                    self.testlocalRealm?.refresh()
+                    do {
+                        // Delete the realm if a migration would be required, instead of migrating it.
+                        // While it's useful during development, do not leave this set to `true` in a production app!
+                        let configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+                        repository.localRealm = try Realm(configuration: configuration)
+                        print("삭제")
+                    } catch {
+                        print("Error opening realm: \(error.localizedDescription)")
+                    }
+
+
+//                    repository.localRealm.refresh()
                 })
             } catch {
                 showAlert(title: "====🔴 압축해제 실패=====")
@@ -145,10 +158,6 @@ extension BackUpViewController: UIDocumentPickerDelegate {
                     print("pregress: \(progress)")
                 }, fileOutputHandler: { unzippedFile in
                     self.showAlert(title: "=====복구 완료 =====>🟢")
-                    
-                    self.testlocalRealm = try! Realm(fileURL: path.appendingPathComponent("default.realm"))
-//                    print(self.testlocalRealm?.configuration.fileURL!)
-//                    print(super.localRealm.configuration.fileURL!)
                 })
             } catch {
                 showAlert(title: "====🔴 압축해제 실패=====")
