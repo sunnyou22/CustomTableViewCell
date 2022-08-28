@@ -7,8 +7,15 @@
 
 import UIKit
 import SnapKit
+import FSCalendar
 
 class ShoppingListView: BaseView {
+    
+    lazy var calendar: FSCalendar = {
+        let view = FSCalendar()
+        view.backgroundColor = .white
+        return view
+    }()
     
     let headerview: UIView = {
         let view = UIView()
@@ -62,7 +69,9 @@ class ShoppingListView: BaseView {
     
     
     override func configureUI() {
+        self.addSubview(calendar)
         self.addSubview(tableView)
+       
         tableView.addSubview(headerview)
         headerview.addSubview(topContainView)
         [topContainSubView, plusButton].forEach { topContainView.addSubview($0) }
@@ -70,8 +79,16 @@ class ShoppingListView: BaseView {
     }
     
     override func setConstraints() {
+        
+        calendar.snp.makeConstraints { make in
+            make.top.trailing.leading.equalTo(self).offset(0)
+            make.height.equalTo(400)
+            
+        }
+        
         tableView.snp.makeConstraints { make in
-            make.edges.equalTo(self).offset(0)
+            make.leading.trailing.bottom.equalTo(self).offset(0)
+            make.top.equalTo(calendar.snp.bottom).offset(0)
         }
         
         topContainView.snp.makeConstraints { make in

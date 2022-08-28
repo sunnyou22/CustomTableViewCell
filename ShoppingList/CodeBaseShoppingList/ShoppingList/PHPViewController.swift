@@ -69,7 +69,7 @@ extension ShoppingListViewController: PHPickerViewControllerDelegate {
                 
                 self.selectedImage = img as? UIImage
                 guard let objectID = self.objectID, let image = self.selectedImage else { return }
-                self.saveImageToFolder(foldername: .todoImageFolder, filename: "\(objectID).jpg", image: image)
+                self.repository.saveImageToFolder(foldername: .todoImageFolder, filename: "\(objectID).jpg", image: image)
                 print("======> 이미지 들어왔나?", image, objectID)
                 DispatchQueue.main.async {
                     self.mainview.tableView.reloadData()

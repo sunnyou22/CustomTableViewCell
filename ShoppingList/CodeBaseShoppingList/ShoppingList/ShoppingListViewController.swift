@@ -11,18 +11,30 @@ import RealmSwift
 import PhotosUI
 
 class ShoppingListViewController: BaseViewController {
+    var repository = UserTodoRepository()
     
     let mainview = ShoppingListView()
-    //    let headerview = UIView()
-    let localRealm = try! Realm( // Realm2 데이터베이스에 테이블 수정추가 등 반영해주기 위한 선언
+//    var localRealm = try! Realm() // Realm2 데이터베이스에 테이블 수정추가 등 반영해주기 위한 선언
+//    var tasks: Results<UserTodo>! {
+//        didSet {
+//            mainview.tableView.reloadData()
+//        }
+//    }
+    var configuration = PHPickerConfiguration()
+    var selectedImage: UIImage?
+    var objectID: ObjectId?
+
+    let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyMMdd"
+        return formatter
+    }()
+    
     var tasks: Results<UserTodo>! {
         didSet {
             mainview.tableView.reloadData()
         }
     }
-    var configuration = PHPickerConfiguration()
-    var selectedImage: UIImage?
-    var objectID: ObjectId?
     
     //MARK: 로드뷰
     override func loadView() {
@@ -32,33 +44,35 @@ class ShoppingListViewController: BaseViewController {
     //MARK: 뷰디드로드
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchData()
         print(#function)
-       
+        repository.fetchDocumentZipFile()
         mainview.headerview.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 100)
         mainview.headerview.backgroundColor = #colorLiteral(red: 0.9610450864, green: 0.8862027526, blue: 0.7589734197, alpha: 1)
         mainview.headerview.layoutIfNeeded()
         mainview.tableView.tableHeaderView = mainview.headerview
         mainview.tableView.delegate = self
         mainview.tableView.dataSource = self
+        mainview.calendar.delegate = self
+        mainview.calendar.dataSource = self
         
         mainview.tableView.register(ShopptingListTableViewCell_re.self, forCellReuseIdentifier: ShopptingListTableViewCell_re.reuseIdentifier)
         
-        print("Realm is located at:", localRealm.configuration.fileURL!)
+        print("Realm is located at:", repository.localRealm.configuration.fileURL!)
         
         view.backgroundColor = .systemBlue
-        fetchDocumentZipFile()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("=====>", #function)
-        mainview.tableView.reloadData()
-        print("Realm is located at:", localRealm.configuration.fileURL!)
+        fetchRealm()
+        print("Realm is located at:", repository.localRealm.configuration.fileURL!)
     }
     
-    func fetchData() {
-        tasks = localRealm.objects(UserTodo.self).sorted(byKeyPath: "todoTitle", ascending: true)
+    func fetchRealm() {
+        
+        // Realm3. 데이터를 정렬해 tasks에 담기
+        tasks = repository.fetch()
     }
     
     override func configure() {
@@ -90,13 +104,13 @@ class ShoppingListViewController: BaseViewController {
     var sortmenuItemList: [UIAction] {
         return [
             UIAction(title: "즐겨찾기", image: UIImage(systemName: "star.fill"), identifier: nil, state: .on) { [self] _ in
-                tasks = localRealm.objects(UserTodo.self).sorted(byKeyPath: "favorite", ascending: true)
+                tasks = repository.fetchSort("favorite", ascending: true)
             },
             UIAction(title: "할일 완료된 순", image: nil, identifier: nil, state: .on) { [self] _ in
-                tasks = localRealm.objects(UserTodo.self).sorted(byKeyPath: "checkbox")
+                tasks = repository.fetchSort("checkbox", ascending: true)
             },
             UIAction(title: "제목순", image: nil, identifier: nil, state: .off) { [self] _ in
-                tasks = localRealm.objects(UserTodo.self).sorted(byKeyPath: "todoTitle")
+                fetchRealm()
             }
         ]
     }
@@ -120,28 +134,29 @@ class ShoppingListViewController: BaseViewController {
     
     @objc func gosetting() {
         let vc = BackUpViewController()
-        
         transition(vc, transitionStyle: .push)
+        guard let testlocalRealm = vc.testlocalRealm else { return }
+            repository.localRealm = testlocalRealm
     }
     
     @objc func pulsRowTodoList() {
         // 이렇게 전체 데이터를 가져오는 등의 과정이 필요함. 화면과 데이터는 따로
-        let task = UserTodo(todoTitle: mainview.insertTextField.text!)
+        let task = UserTodo(todoTitle: mainview.insertTextField.text!, todoDate: Date())
         self.objectID = task.objectID
         
         print(task)
         print(#function)
         
         do {
-            try localRealm.write {
-                localRealm.add(task)
+            try repository.localRealm.write {
+                repository.localRealm.add(task)
                 print("림 성공쓰")
             }
         } catch let error {
             print("텍스트 필드 림, \(error)")
         }
         
-        fetchData() // 여기서 수정된 테이블 가져오기
+        fetchRealm() // 여기서 수정된 테이블 가져오기
         mainview.tableView.resignFirstResponder()
         mainview.insertTextField.text = nil
     }
@@ -183,6 +198,7 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(#function)
+        print(tasks.count)
         return tasks.count
     }
     
@@ -221,24 +237,27 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
     @objc
     func clickedfavoriteButton(_ sender: UIButton) {
         let taskIndex = tasks[sender.tag]
-        try! localRealm.write({
-            //            taskIndex.favorite.toggle()
-            taskIndex.favorite = !taskIndex.favorite
-            
-            //            self.localRealm.create(UserTodo.self,
-            //                             value: ["objectID": self.tasks[indexPath.row].objectId, "favorite": ],
-            //                             update: .modified)
-        })
+        
+        repository.updateFavorite(item: taskIndex)
+        
+//
+//        try! localRealm.write({
+//            //            taskIndex.favorite.toggle()
+//            taskIndex.favorite = !taskIndex.favorite
+//
+//            //            self.localRealm.create(UserTodo.self,
+//            //                             value: ["objectID": self.tasks[indexPath.row].objectId, "favorite": ],
+//            //                             update: .modified)
+//        })
         mainview.tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let taskindex = tasks[indexPath.row]
         
-        try! self.localRealm.write({
-            taskindex.checkbox.toggle()
+        repository.updateCheckbox(item: taskindex)
             mainview.tableView.reloadData()
-        })
+        
     }
     
     // 편집기능을 넣어줄거야 이게 있어야 삭제도 편집도 가능함
@@ -247,11 +266,10 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
         
         let item = tasks?[indexPath.row]
         
-        removeImageFromFolder(fileName: "\(item!.objectID).jpg", folderName: .todoImageFolder)
+        repository.removeImageFromFolder(fileName: "\(item!.objectID).jpg", folderName: .todoImageFolder)
+        
         if editingStyle == .delete {
-            try! localRealm.write {
-                localRealm.delete(item!)
-            }
+            repository.deleteRecord(item: item!)
         }
         //        fetchData()
                 tableView.reloadData()

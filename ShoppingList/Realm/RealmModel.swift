@@ -12,7 +12,7 @@ import RealmSwift
 // 즐겨찾기 기능 구현해보기
 class UserTodo: Object {
     @Persisted var todoTitle: String
-//    @Persisted var todoDate: String
+    @Persisted var todoDate = Date()
     @Persisted var favorite: Bool
     @Persisted var checkbox: Bool
 
@@ -20,10 +20,10 @@ class UserTodo: Object {
 @Persisted(primaryKey: true) var objectID: ObjectId
 
 //MARK: 이니셜라이즈
-    convenience init(todoTitle: String) {
+    convenience init(todoTitle: String, todoDate: Date) {
     self.init()
     self.todoTitle = todoTitle
-//    self.todoDate = ""
+    self.todoDate = todoDate
     self.favorite = false
     self.checkbox = false
 }

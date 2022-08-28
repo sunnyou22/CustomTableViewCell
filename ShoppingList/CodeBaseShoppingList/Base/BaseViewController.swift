@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 class BaseViewController: UIViewController {
     
@@ -14,9 +15,14 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         configure()
         setConstraints()
+        debugFuction()
     }
     
     func configure() { }
     
     func setConstraints() { }
+    
+    func debugFuction() {
+    
+}
 }

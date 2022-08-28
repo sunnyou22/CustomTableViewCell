@@ -24,6 +24,8 @@
 		903CD5FB28B39B8100411649 /* ShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903CD5FA28B39B8100411649 /* ShoppingListViewController.swift */; };
 		903CD5FD28B39B9D00411649 /* ShoppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903CD5FC28B39B9D00411649 /* ShoppingListView.swift */; };
 		903CD5FF28B39BB000411649 /* ShopptingListTableViewCell_re.swift in Sources */ = {isa = PBXBuildFile; fileRef = 903CD5FE28B39BB000411649 /* ShopptingListTableViewCell_re.swift */; };
+		90477A9528BB3B8700C22C8D /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 90477A9428BB3B8700C22C8D /* FSCalendar */; };
+		90477A9728BB3E4500C22C8D /* UserTodoRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90477A9628BB3E4500C22C8D /* UserTodoRepositoryType.swift */; };
 		904942E02886AED500E79CF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904942DF2886AED500E79CF8 /* AppDelegate.swift */; };
 		904942E22886AED500E79CF8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904942E12886AED500E79CF8 /* SceneDelegate.swift */; };
 		904942E42886AED500E79CF8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904942E32886AED500E79CF8 /* ViewController.swift */; };
@@ -48,6 +50,7 @@
 		903CD5FA28B39B8100411649 /* ShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewController.swift; sourceTree = "<group>"; };
 		903CD5FC28B39B9D00411649 /* ShoppingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListView.swift; sourceTree = "<group>"; };
 		903CD5FE28B39BB000411649 /* ShopptingListTableViewCell_re.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopptingListTableViewCell_re.swift; sourceTree = "<group>"; };
+		90477A9628BB3E4500C22C8D /* UserTodoRepositoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTodoRepositoryType.swift; sourceTree = "<group>"; };
 		904942DC2886AED500E79CF8 /* ShoppingList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		904942DF2886AED500E79CF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		904942E12886AED500E79CF8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +71,7 @@
 				902579EE28B756EE00BB3501 /* RealmSwift in Frameworks */,
 				902579EC28B756EE00BB3501 /* Realm in Frameworks */,
 				902579F428B792B600BB3501 /* Zip in Frameworks */,
+				90477A9528BB3B8700C22C8D /* FSCalendar in Frameworks */,
 				902579E828B7560A00BB3501 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,6 +120,7 @@
 				903CD5EF28B3982800411649 /* Base */,
 				9008E43B28B63625005852B4 /* FileManager+Extension.swift */,
 				902579E428B7556300BB3501 /* Extension.swift */,
+				90477A9628BB3E4500C22C8D /* UserTodoRepositoryType.swift */,
 			);
 			path = CodeBaseShoppingList;
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 				902579EB28B756EE00BB3501 /* Realm */,
 				902579ED28B756EE00BB3501 /* RealmSwift */,
 				902579F328B792B600BB3501 /* Zip */,
+				90477A9428BB3B8700C22C8D /* FSCalendar */,
 			);
 			productName = ShoppingList;
 			productReference = 904942DC2886AED500E79CF8 /* ShoppingList.app */;
@@ -238,6 +244,7 @@
 				902579E628B7560A00BB3501 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				902579EA28B756EE00BB3501 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				902579F228B792B500BB3501 /* XCRemoteSwiftPackageReference "Zip" */,
+				90477A9328BB3B8700C22C8D /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 904942DD2886AED500E79CF8 /* Products */;
 			projectDirPath = "";
@@ -278,6 +285,7 @@
 				904942F62886B73000E79CF8 /* ShoppingListTableViewController.swift in Sources */,
 				902579E528B7556300BB3501 /* Extension.swift in Sources */,
 				9031E89F28B7EE620054590B /* PHPViewController.swift in Sources */,
+				90477A9728BB3E4500C22C8D /* UserTodoRepositoryType.swift in Sources */,
 				902579E228B753A700BB3501 /* BackUpViewController.swift in Sources */,
 				903CD5F928B39B0600411649 /* BaseView.swift in Sources */,
 				9008E43C28B63625005852B4 /* FileManager+Extension.swift in Sources */,
@@ -529,6 +537,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		90477A9328BB3B8700C22C8D /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -551,6 +567,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 902579F228B792B500BB3501 /* XCRemoteSwiftPackageReference "Zip" */;
 			productName = Zip;
+		};
+		90477A9428BB3B8700C22C8D /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90477A9328BB3B8700C22C8D /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

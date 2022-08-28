@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FSCalendar
 
 extension UIViewController {
     
@@ -48,71 +49,37 @@ extension UIViewController {
     
 }
 
-enum PathComponentName: String {
-    case todoImageFolder
-}
+extension ShoppingListViewController: FSCalendarDelegate, FSCalendarDataSource {
 
-extension UIViewController {
-    func documentDirectoryPath() -> URL? {
-        
-        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil } // 내 앱에 해당되는 도큐먼트 폴더가 있늬?
-        
-        return documentDirectory
+    // 달력칸에 있는 동그라미 개수
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        return repository.fetchFilterDate(date: date).count
     }
     
+//    // 달력칸 안에 있는 제목
+//    func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
+//        <#code#>
+//    }
+//
+//    //이미지
+//    func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
+//        <#code#>
+//    }
+//
+//    //달력칸 크기변경 - 컬렉션뷰라 ㄱ ㅏ능
+//    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+//        <#code#>
+//    }
     
-    func checkDocumentLocation() -> URL {
-        guard let path = documentDirectoryPath() else {
-            showAlert(title: "도큐먼트 위치에 오류가 있습니다.")
-            return URL(fileURLWithPath: "")
-        }
-        return path
+    //subtitle
+    func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
+        // 특정한 날을 받아오는 코드 구현하기
+        return formatter.string(from: date) == "220907" ? "오프라인 모임" : nil
     }
     
-    //이미지를 폴더안에 저장해주기
-    func saveImageToFolder(foldername: PathComponentName, filename: String, image: UIImage) {
-        
-        guard let documentsFolder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-        let folderURL = documentsFolder.appendingPathComponent(foldername.rawValue)
-        let folderExists = (try? folderURL.checkResourceIsReachable()) ?? false // 폴더에 도달 가능?
-        
-        do { //try문이기 땜눈에 do
-            if !folderExists { // 도달가능해
-                // 그럼 그 url에 해당하는 폴더 만들어
-                try FileManager.default.createDirectory(at: folderURL, withIntermediateDirectories: false)
-            }
-            let fileURL = folderURL.appendingPathComponent(filename) // 파일 경로 생성 및 저장
-            guard let data = image.jpegData(compressionQuality: 0.8) else { return }
-            
-            do {
-                try data.write(to: fileURL)
-            } catch {
-                print(error, "====> 해당 이미지를 URL로 수정할 수 없습니다.")
-            }
-        } catch { print("=====> 이미지 폴더를 만들 수 없습니다") }
-    }
-    
-    
-    func fetchDocumentZipFile()  {
-        
-        do {
-            guard let path = documentDirectoryPath() else { return } //도큐먼트 경로 가져옴
-            
-//            let docs = try FileManager.default.contentsOfDirectory(atPath: <#T##String#>) 내부에서 알 수 있는 경로의 제약이 좀더 있음, 그래서 Url로 받아오는 아래걸 많이 씀
-            let docs =  try FileManager.default.contentsOfDirectory(at: path, includingPropertiesForKeys: nil)
-            print("👉 docs: \(docs)") //도큐먼트 안에 있는 파일들
-            
-            let zip = docs.filter { $0.pathExtension == "zip" } //압축 파일의 확장자가 zip인 것만 가져옴
-            print("👉 zip: \(zip)")
-            
-            let result = zip.map { $0.lastPathComponent } //경로 다 보여줄 필요 없으니까 마지막 확장자를 string으로 가져오는 것
-            print("👉 result: \(result)") // 오 이렇게 하면 폴더로 만들어서 관리하기도 쉬울듯
-            
-//            return result //zip파일의 구성요소가 담긴
-        } catch {
-            
-            print("Error🔴")
-        }
+    //날짜를 기준으로 해서 특정 셀만 보여주도록 하기
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        tasks = repository.fetchFilterDate(date: date)
+        mainview.tableView.reloadData()
     }
 }
-
