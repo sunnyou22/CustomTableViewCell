@@ -66,9 +66,6 @@ class ShoppingListViewController: BaseViewController {
         super.viewWillAppear(animated)
         print("=====>", #function)
         
-//        let config = Realm.Configuration(schemaVersion: 2)
-//        Realm.Configuration.defaultConfiguration = config
-//        repository.localRealm.refresh()
         fetchRealm()
         mainview.tableView.reloadData()
         print("Realm is located at:", repository.localRealm.configuration.fileURL!)

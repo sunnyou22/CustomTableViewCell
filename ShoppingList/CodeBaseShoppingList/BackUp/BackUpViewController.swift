@@ -128,7 +128,6 @@ extension BackUpViewController: UIDocumentPickerDelegate {
                 try Zip.unzipFile(fileURL, destination: path, overwrite: true, password: nil, progress: { progress in
                     print("progress: \(progress)")
                 }, fileOutputHandler: { [self] unzippedFile in
-                    showAlert(title: "=====복구 완료 =====🟢")
 //
                     do {
                         // Delete the realm if a migration would be required, instead of migrating it.
@@ -142,7 +141,9 @@ extension BackUpViewController: UIDocumentPickerDelegate {
                 
                     let config = Realm.Configuration(schemaVersion: 2)
                     Realm.Configuration.defaultConfiguration = config
+                    showAlert(title: "=====복구 완료 =====🟢")
                 })
+                
             } catch {
                 showAlert(title: "====🔴 압축해제 실패=====")
             }
