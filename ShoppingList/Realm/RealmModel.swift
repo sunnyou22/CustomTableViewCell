@@ -15,6 +15,9 @@ class UserTodo: Object {
     @Persisted var todoDate = Date()
     @Persisted var favorite: Bool
     @Persisted var checkbox: Bool
+    @Persisted var migration: Double?
+    @Persisted var userDescription: String
+    @Persisted var fix: Bool
 
 //MARK: pk 만들기
 @Persisted(primaryKey: true) var objectID: ObjectId

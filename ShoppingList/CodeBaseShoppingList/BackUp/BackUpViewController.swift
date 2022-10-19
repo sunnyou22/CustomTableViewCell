@@ -118,7 +118,7 @@ extension BackUpViewController: UIDocumentPickerDelegate {
         let sandBoxFileURL = path.appendingPathComponent(selectedFileURL.lastPathComponent)
         print("=====> selectedFileURL.lastPathComponent",  selectedFileURL.lastPathComponent)
         
-        //복구할 파일이 있는지 확인 - 1. 경로확인
+        //복구할 파일이 있는지 확인 - 1. 경로확인 - 파일앱에 있는 압축파일을 비교
         if FileManager.default.fileExists(atPath: sandBoxFileURL.path) {
             
             let fileURL = path.appendingPathComponent(BackUpViewController.zipFileName)
@@ -128,19 +128,6 @@ extension BackUpViewController: UIDocumentPickerDelegate {
                 try Zip.unzipFile(fileURL, destination: path, overwrite: true, password: nil, progress: { progress in
                     print("progress: \(progress)")
                 }, fileOutputHandler: { [self] unzippedFile in
-//
-                    do {
-                        // Delete the realm if a migration would be required, instead of migrating it.
-                        // While it's useful during development, do not leave this set to `true` in a production app!
-                        let configuration = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
-                        repository.localRealm = try Realm(configuration: configuration)
-                        print("삭제")
-                    } catch {
-                        print("Error opening realm: \(error.localizedDescription)")
-                    }
-                
-                    let config = Realm.Configuration(schemaVersion: 2)
-                    Realm.Configuration.defaultConfiguration = config
                     showAlert(title: "=====복구 완료 =====🟢")
                 })
                 
@@ -150,7 +137,9 @@ extension BackUpViewController: UIDocumentPickerDelegate {
         } else {
             
             do { //파일앱에 저장했다면?
-                
+                //백업복구할 때 document에 저장하는데 파일에 따로 분기처리로 저장하는 건 사용자에게 백업파일을 명시적으로 보여주기 위해서?
+                //복구할 때 기존의 램을 삭제해주고 마이그레이션으로 저장한 버전의 테이블을 가지고 오는 방식도 할 수 있나?
+ //-> 램은 살아있고 안의 레코드가 삭제됨
                 try FileManager.default.copyItem(at: selectedFileURL, to: sandBoxFileURL)
                 
                 let filURL = path.appendingPathComponent(BackUpViewController.fileName)

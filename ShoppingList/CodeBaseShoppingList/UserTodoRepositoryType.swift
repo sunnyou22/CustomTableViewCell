@@ -36,6 +36,7 @@ protocol UserTodoRepositoryType {
 
 class UserTodoRepository: UserTodoRepositoryType {
     
+    static let shared = UserTodoRepository()
     
     var localRealm = try! Realm() 
         

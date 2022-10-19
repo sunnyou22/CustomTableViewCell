@@ -44,6 +44,19 @@ class ShoppingListViewController: BaseViewController {
     //MARK: 뷰디드로드
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        for i in 1...50 {
+            let task = UserTodo(todoTitle: "마이그레이션즁즁", todoDate: Date())
+            
+            do {
+                try  UserTodoRepository.shared.localRealm.write {
+                    UserTodoRepository.shared.localRealm.add(task)
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
         print(#function)
         repository.fetchDocumentZipFile()
         mainview.headerview.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 100)
@@ -187,23 +200,26 @@ extension ShoppingListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         print(#function)
-        
+        print("🔴", repository.localRealm.objects(UserTodo.self))
         return 80
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         print(#function)
+            print("🔴", repository.localRealm.objects(UserTodo.self))
         return 100
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(#function)
+                print("🔴", repository.localRealm.objects(UserTodo.self))
         print(tasks.count)
         return tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print(#function)
+                    print("🔴", repository.localRealm.objects(UserTodo.self))
         let cell = tableView.dequeueReusableCell(withIdentifier: ShopptingListTableViewCell_re.reuseIdentifier, for: indexPath) as! ShopptingListTableViewCell_re
         let row = tasks[indexPath.row]
       
